@@ -1,5 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = ({ navigation }) => {
@@ -48,16 +56,18 @@ const HomeScreen = ({ navigation }) => {
     },
   ];
 
-  const cardColors = ["#ffa69e", "#ffebb2", "#e29578", "#c2ddce", "#88d0ff", "#f2cc8f", "#a8b5e2"];
+  const cardColors = [
+    "#ffa69e",
+    "#ffebb2",
+    "#e29578",
+    "#c2ddce",
+    "#88d0ff",
+    "#f2cc8f",
+    "#a8b5e2",
+  ];
 
   return (
     <SafeAreaView style={styles.container} edges={["left", "right"]}>
-
-      {/* Custom Header with Shadow */}
-      <View style={styles.header}>
-        <Text style={styles.headerText}>GTU-IEP</Text>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title2}>Welcome Students</Text>
         <Text style={styles.title}>Explore AlumniLink</Text>
@@ -65,11 +75,22 @@ const HomeScreen = ({ navigation }) => {
         {cardData.map((card, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.card, { backgroundColor: cardColors[index % cardColors.length] }]}
+            style={[
+              styles.card,
+              { backgroundColor: cardColors[index % cardColors.length] },
+            ]}
             onPress={() => navigation.navigate(card.navigateTo)}
           >
-            <View style={[styles.cardContent, index % 2 === 0 ? styles.rowLeft : styles.rowRight]}>
-              <Image source={card.image} style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]} />
+            <View
+              style={[
+                styles.cardContent,
+                index % 2 === 0 ? styles.rowLeft : styles.rowRight,
+              ]}
+            >
+              <Image
+                source={card.image}
+                style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]}
+              />
               <View style={styles.textContainer}>
                 <Text style={styles.cardTitle}>{card.title}</Text>
                 <Text style={styles.cardLink}>Show More →</Text>
@@ -87,23 +108,13 @@ const styles = StyleSheet.create({
 
   // Custom Header Styling with Shadow
   header: {
-    backgroundColor: '#5CA7D8', // Background color of the header
     paddingVertical: 4, // Padding for height of the header
     paddingHorizontal: 16, // Padding for the sides
-
-    // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 }, // Shadow offset to give depth
-    shadowOpacity: 0.3, // Shadow opacity
-    shadowRadius: 4, // Blur radius of the shadow
-
-    // Elevation for Android
-    elevation: 5, // Makes shadow work on Android
   },
   headerText: {
-    color: '#fff', // Text color
+    color: "#fff", // Text color
     fontSize: 20, // Font size for app name
-    fontWeight: 'bold', // Bold text for prominence
+    fontWeight: "bold", // Bold text for prominence
     paddingTop: 35,
   },
 
