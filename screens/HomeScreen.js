@@ -67,7 +67,14 @@ const HomeScreen = ({ navigation }) => {
   ];
 
   return (
-    <SafeAreaView style={styles.container} edges={["left", "right"]}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      {/* Adding StatusBar here to control the appearance */}
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#fff"
+        translucent={false}
+      />
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title2}>Welcome Students</Text>
         <Text style={styles.title}>Explore AlumniLink</Text>
@@ -105,18 +112,6 @@ const HomeScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
-
-  // Custom Header Styling with Shadow
-  header: {
-    paddingVertical: 4, // Padding for height of the header
-    paddingHorizontal: 16, // Padding for the sides
-  },
-  headerText: {
-    color: "#fff", // Text color
-    fontSize: 20, // Font size for app name
-    fontWeight: "bold", // Bold text for prominence
-    paddingTop: 35,
-  },
 
   scrollContainer: { paddingHorizontal: 16, paddingBottom: 16 },
   title2: { fontSize: 18, fontWeight: "bold", marginTop: 16 },
