@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
 import ChatScreen from "./screens/ChatScreen";
-import IEPDeatils from "./screens/IEPDetails";
+import IEPDetails from "./screens/IEPDetails";
 import AboutUsScreen from "./screens/AboutUsScreen";
 import Accommodation from "./screens/AccomodationScreen";
 import ThingsToBring from "./screens/ThingsToBring";
@@ -16,6 +16,17 @@ import PlacesToVisit from "./screens/PlacesToVisit";
 import FAQ from "./screens/FAQ";
 import DiningService from "./screens/DiningService";
 import AlumniContact from "./screens/AlumniContact";
+// things to bring
+import DocumentsDetail from "./screens/thingstobring/DocumentsDetail";
+import StationaryDetail from "./screens/thingstobring/StationaryDetail";
+import ElectronicsDetail from "./screens/thingstobring/ElectronicsDetail";
+import EntertainmentDetail from "./screens/thingstobring/EntertainmentDetail";
+import MiscellaneousDetail from "./screens/thingstobring/MiscellaneousDetail";
+import PersonalCareDetail from "./screens/thingstobring/PersonalCareDetail";
+// new screens for Things to Bring
+import ClothingDetail from "./screens/thingstobring/ClothingDetail";
+import SnacksDetail from "./screens/thingstobring/SnacksDetail";
+import FinancialDetail from "./screens/thingstobring/FinancialDetail";
 
 // Accommodation Imports
 import EntertainmentScreen from "./screens/Accommodation/EntertainmentScreen";
@@ -30,7 +41,7 @@ const Stack = createStackNavigator();
 const HomeStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    <Stack.Screen name="IEPDetails" component={IEPDeatils} />
+    <Stack.Screen name="IEPDetails" component={IEPDetails} />
     <Stack.Screen name="Accommodation" component={Accommodation} />
     <Stack.Screen name="ThingsToBring" component={ThingsToBring} />
     <Stack.Screen name="PlacesToVisit" component={PlacesToVisit} />
@@ -55,6 +66,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
@@ -84,7 +96,7 @@ export default function App() {
             left: 20,
             right: 20,
             borderRadius: 30,
-            height: 70,
+            height: 50,
             shadowColor: "#000",
             shadowOpacity: 0.1,
             shadowOffset: { width: 0, height: 5 },
