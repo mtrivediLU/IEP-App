@@ -1,34 +1,54 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Animated } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // Ionicons for icons
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ElectronicsDetail = () => {
   const navigation = useNavigation();
-  
-  // Initialize the state for the list of electronics items with all checkboxes unchecked
+
+  // Initialize state with default values, unchecked items
   const [electronicsItems, setElectronicsItems] = useState([
-    { id: 1, name: 'Laptop and charger', selected: false, partiallySelected: false },
-    { id: 2, name: 'Mobile phone charger', selected: false, partiallySelected: false },
-    { id: 3, name: 'Watch charger', selected: false, partiallySelected: false },
-    { id: 4, name: 'Earphones', selected: false, partiallySelected: false },
-    { id: 5, name: 'Power bank', selected: false, partiallySelected: false },
-    { id: 6, name: 'Travel adapter', selected: false, partiallySelected: false },
-    { id: 7, name: 'USB drives', selected: false, partiallySelected: false },
-    { id: 8, name: 'Headphones', selected: false, partiallySelected: false },
-    { id: 9, name: 'Any necessary cables', selected: false, partiallySelected: false },
+    { id: 1, name: 'Laptop and charger', selected: false },
+    { id: 2, name: 'Mobile phone charger', selected: false },
+    { id: 3, name: 'Watch charger', selected: false },
+    { id: 4, name: 'Earphones', selected: false },
+    { id: 5, name: 'Power bank', selected: false },
+    { id: 6, name: 'Travel adapter', selected: false },
+    { id: 7, name: 'USB drives', selected: false },
+    { id: 8, name: 'Headphones', selected: false },
+    { id: 9, name: 'Any necessary cables', selected: false },
   ]);
 
-  // Function to handle checkbox click, only allows selection and prevents unselecting
-  const toggleCheckbox = (id) => {
-    setElectronicsItems((prevItems) =>
-      prevItems.map((item) =>
-        item.id === id && !item.selected
-          ? { ...item, selected: true, partiallySelected: false } // Allow only selection
-          : item
-      )
+  // Load the saved checkbox states from AsyncStorage when the component mounts
+  useEffect(() => {
+    const loadSelections = async () => {
+      try {
+        const storedItems = await AsyncStorage.getItem('selectedItems');
+        if (storedItems) {
+          setElectronicsItems(JSON.parse(storedItems));
+        }
+      } catch (error) {
+        Alert.alert('Error', 'Failed to load saved data.');
+      }
+    };
+    loadSelections();
+  }, []);
+
+  // Function to handle checkbox click (can select and deselect)
+  const toggleCheckbox = async (id) => {
+    const updatedItems = electronicsItems.map((item) =>
+      item.id === id ? { ...item, selected: !item.selected } : item // Toggle selection state
     );
+    setElectronicsItems(updatedItems);
+
+    // Save the updated state to AsyncStorage
+    try {
+      await AsyncStorage.setItem('selectedItems', JSON.stringify(updatedItems));
+    } catch (error) {
+      Alert.alert('Error', 'Failed to save selection.');
+    }
   };
 
   const renderItem = ({ item }) => {
