@@ -50,7 +50,7 @@ const EntertainmentScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* Title */}
-        <Text style={styles.headerTitle}>Living Area </Text>
+        <Text style={styles.headerTitle}>Kitchen Services </Text>
 
         {/* This view will take up the space after the title to ensure proper centering */}
         <View style={{ width: 28 }} />
@@ -73,7 +73,7 @@ const EntertainmentScreen = ({ navigation }) => {
 
       {/* Details Section */}
       <View style={styles.detailsContainer}>
-        <Text style={styles.title}> Living Area </Text>
+        <Text style={styles.title}> Kitchen Facility </Text>
 
         <Text style={styles.description}>
           Our Entertainment Facility offers both indoor and outdoor games for

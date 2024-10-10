@@ -24,7 +24,7 @@ const data = [
     id: "2",
     title: "Rooms",
     description: "Comfortable and modern rooms.",
-    screen: "RoomsScreen",
+    screen: "RoomScreen",
     imageUrl: require("../assets/room.png"),
   },
   {

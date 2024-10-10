@@ -17,6 +17,14 @@ import FAQ from "./screens/FAQ";
 import DiningService from "./screens/DiningService";
 import AlumniContact from "./screens/AlumniContact";
 
+// Accommodation Imports
+import EntertainmentScreen from "./screens/Accommodation/EntertainmentScreen";
+import RoomScreen from "./screens/Accommodation/RoomScreen";
+import LivingAreaScreen from "./screens/Accommodation/LivingAreaScreen";
+import StudyRoomScreen from "./screens/Accommodation/StudyRoomScreen";
+import DinningHallScreen from "./screens/Accommodation/DinningHallScreen";
+import KitchenServicesScreen from "./screens/Accommodation/KitchenServicesScreen";
+
 // Create Stack Navigator for Home-related screens
 const Stack = createStackNavigator();
 const HomeStack = () => (
@@ -29,6 +37,15 @@ const HomeStack = () => (
     <Stack.Screen name="FAQ" component={FAQ} />
     <Stack.Screen name="DiningService" component={DiningService} />
     <Stack.Screen name="AlumniContact" component={AlumniContact} />
+    <Stack.Screen name="LivingAreaScreen" component={LivingAreaScreen} />
+    <Stack.Screen name="EntertainmentScreen" component={EntertainmentScreen} />
+    <Stack.Screen name="RoomScreen" component={RoomScreen} />
+    <Stack.Screen name="StudyRoomScreen" component={StudyRoomScreen} />
+    <Stack.Screen name="DiningHallScreen" component={DinningHallScreen} />
+    <Stack.Screen
+      name="KitchenServicesScreen"
+      component={KitchenServicesScreen}
+    />
   </Stack.Navigator>
 );
 
