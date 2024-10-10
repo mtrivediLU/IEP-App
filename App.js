@@ -16,13 +16,17 @@ import PlacesToVisit from "./screens/PlacesToVisit";
 import FAQ from "./screens/FAQ";
 import DiningService from "./screens/DiningService";
 import AlumniContact from "./screens/AlumniContact";
-//things to bring
-import DocumentsDetail from './screens/thingstobring/DocumentsDetail'; // Add individual detail screens
+// things to bring
+import DocumentsDetail from './screens/thingstobring/DocumentsDetail';
 import StationaryDetail from './screens/thingstobring/StationaryDetail';
 import ElectronicsDetail from './screens/thingstobring/ElectronicsDetail';
 import EntertainmentDetail from './screens/thingstobring/EntertainmentDetail';
 import MiscellaneousDetail from './screens/thingstobring/MiscellaneousDetail';
 import PersonalCareDetail from './screens/thingstobring/PersonalCareDetail';
+// new screens for Things to Bring
+import ClothingDetail from './screens/thingstobring/ClothingDetail';
+import SnacksDetail from './screens/thingstobring/SnacksDetail';
+import FinancialDetail from './screens/thingstobring/FinancialDetail';
 
 // Create Stack Navigator for Home-related screens
 const Stack = createStackNavigator();
@@ -43,6 +47,10 @@ const HomeStack = () => (
     <Stack.Screen name="EntertainmentDetail" component={EntertainmentDetail} />
     <Stack.Screen name="MiscellaneousDetail" component={MiscellaneousDetail} />
     <Stack.Screen name="PersonalCareDetail" component={PersonalCareDetail} />
+    {/* New screens added for ThingsToBring */}
+    <Stack.Screen name="ClothingDetail" component={ClothingDetail} />
+    <Stack.Screen name="SnacksDetail" component={SnacksDetail} />
+    <Stack.Screen name="FinancialDetail" component={FinancialDetail} />
   </Stack.Navigator>
 );
 
@@ -82,7 +90,7 @@ export default function App() {
             left: 20,
             right: 20,
             borderRadius: 30,
-            height: 70,
+            height: 50,
             shadowColor: "#000",
             shadowOpacity: 0.1,
             shadowOffset: { width: 0, height: 5 },
