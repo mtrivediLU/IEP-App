@@ -1,7 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
 
 const IEPDetails = () => {
+  const handleKnowMorePress = () => {
+    Linking.openURL('https://www.iep.gtu.ac.in/');
+  };
+
+  const handleHandbookPress = () => {
+    Linking.openURL('https://www.iep.gtu.ac.in/IEP%20HANDBOOK%20%202024.pdf');
+  };
+
   return (
     <ScrollView style={styles.container}>
       {/* Image Section */}
@@ -10,7 +18,7 @@ const IEPDetails = () => {
           source={{ uri: 'https://via.placeholder.com/400x200' }} // Replace with the actual image URL or local asset
           style={styles.image}
         />
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleKnowMorePress}>
           <Text style={styles.buttonText}>Know More</Text>
         </TouchableOpacity>
       </View>
@@ -30,6 +38,13 @@ const IEPDetails = () => {
         <Text style={styles.description}>
           Since its inception, more than 2,370 students have participated in IEP, finding their way to success in their academic and professional careers. By engaging in international collaborations, students are provided the opportunity to gain valuable global perspectives, industry-relevant skills, and experiences that prepare them for future challenges in an increasingly interconnected world.
         </Text>
+      </View>
+
+      {/* IEP Handbook Button */}
+      <View style={styles.handbookContainer}>
+        <TouchableOpacity style={styles.handbookButton} onPress={handleHandbookPress}>
+          <Text style={styles.handbookButtonText}>Download IEP Handbook</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -84,6 +99,23 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'justify',
     marginBottom: 20,
+  },
+  handbookContainer: {
+    marginTop: 30,
+    paddingHorizontal: 20,
+    marginBottom: 40,
+    alignItems: 'center',
+  },
+  handbookButton: {
+    backgroundColor: '#007AFF',
+    paddingVertical: 12,
+    paddingHorizontal: 40,
+    borderRadius: 25,
+  },
+  handbookButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
 

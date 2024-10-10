@@ -8,7 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
 import ChatScreen from "./screens/ChatScreen";
-import IEPDeatils from "./screens/IEPDetails";
+import IEPDetails from "./screens/IEPDetails";
 import AboutUsScreen from "./screens/AboutUsScreen";
 import Accommodation from "./screens/AccomodationScreen";
 import ThingsToBring from "./screens/ThingsToBring";
@@ -16,19 +16,33 @@ import PlacesToVisit from "./screens/PlacesToVisit";
 import FAQ from "./screens/FAQ";
 import DiningService from "./screens/DiningService";
 import AlumniContact from "./screens/AlumniContact";
+//things to bring
+import DocumentsDetail from './screens/thingstobring/DocumentsDetail'; // Add individual detail screens
+import StationaryDetail from './screens/thingstobring/StationaryDetail';
+import ElectronicsDetail from './screens/thingstobring/ElectronicsDetail';
+import EntertainmentDetail from './screens/thingstobring/EntertainmentDetail';
+import MiscellaneousDetail from './screens/thingstobring/MiscellaneousDetail';
+import PersonalCareDetail from './screens/thingstobring/PersonalCareDetail';
 
 // Create Stack Navigator for Home-related screens
 const Stack = createStackNavigator();
 const HomeStack = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="HomeScreen" component={HomeScreen} />
-    <Stack.Screen name="IEPDetails" component={IEPDeatils} />
+    <Stack.Screen name="IEPDetails" component={IEPDetails} />
     <Stack.Screen name="Accommodation" component={Accommodation} />
     <Stack.Screen name="ThingsToBring" component={ThingsToBring} />
     <Stack.Screen name="PlacesToVisit" component={PlacesToVisit} />
     <Stack.Screen name="FAQ" component={FAQ} />
     <Stack.Screen name="DiningService" component={DiningService} />
     <Stack.Screen name="AlumniContact" component={AlumniContact} />
+    {/* Add navigation for individual card details from ThingsToBring */}
+    <Stack.Screen name="DocumentsDetail" component={DocumentsDetail} />
+    <Stack.Screen name="StationaryDetail" component={StationaryDetail} />
+    <Stack.Screen name="ElectronicsDetail" component={ElectronicsDetail} />
+    <Stack.Screen name="EntertainmentDetail" component={EntertainmentDetail} />
+    <Stack.Screen name="MiscellaneousDetail" component={MiscellaneousDetail} />
+    <Stack.Screen name="PersonalCareDetail" component={PersonalCareDetail} />
   </Stack.Navigator>
 );
 
@@ -38,6 +52,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
+      <StatusBar barStyle="dark-content" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
