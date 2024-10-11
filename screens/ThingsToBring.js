@@ -92,7 +92,7 @@ const ThingsToBring = () => {
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
           <Ionicons name="arrow-back" size={28} color="#007AFF" />
         </TouchableOpacity>
-        <Text style={styles.header}>Things to bring</Text>
+        <Text style={styles.header}>Things to Bring</Text>
       </View>
       <FlatList
         data={thingsToBringData}

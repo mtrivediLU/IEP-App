@@ -8,7 +8,6 @@ import {
   FlatList,
   Dimensions,
   Modal,
-  TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -23,18 +22,19 @@ const images = [
 
 const EntertainmentScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const modalFlatListRef = useRef(null); // For modal FlatList
+  const [currentIndex, setCurrentIndex] = useState(0); // Index for main slider
   const [isModalVisible, setIsModalVisible] = useState(false); // For image zoom functionality
-  const [selectedImage, setSelectedImage] = useState(null); // Track which image was clicked
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0); // Index for modal slider
 
-  // Function to handle scrolling and set the current index
+  // Function to handle scrolling and set the current index on main screen
   const handleScroll = (event) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const newIndex = Math.floor(contentOffsetX / width);
+    const newIndex = Math.floor(contentOffsetX / (width * 0.85));
     setCurrentIndex(newIndex);
   };
 
-  // Navigate to the next image
+  // Navigate to the next image on main screen
   const handleNextImage = () => {
     let nextIndex = currentIndex + 1;
     if (nextIndex >= images.length) {
@@ -44,7 +44,7 @@ const EntertainmentScreen = ({ navigation }) => {
     setCurrentIndex(nextIndex);
   };
 
-  // Auto-slide the images every 3 seconds
+  // Auto-slide the images every 3 seconds on main screen
   useEffect(() => {
     const interval = setInterval(() => {
       handleNextImage();
@@ -55,8 +55,8 @@ const EntertainmentScreen = ({ navigation }) => {
   }, [currentIndex]);
 
   // Function to handle image click to open it in full-screen modal
-  const handleImagePress = (image) => {
-    setSelectedImage(image);
+  const handleImagePress = (index) => {
+    setSelectedImageIndex(index);
     setIsModalVisible(true);
   };
 
@@ -65,11 +65,15 @@ const EntertainmentScreen = ({ navigation }) => {
     setIsModalVisible(false);
   };
 
+  // Function to handle scrolling in modal
+  const handleModalScroll = (event) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.floor(contentOffsetX / width);
+    setSelectedImageIndex(newIndex);
+  };
+
   return (
     <View style={styles.container}>
-      {/* Gradient Background */}
-      <View style={styles.gradientBackground} />
-
       {/* Header with back button and title */}
       <View style={styles.headerContainer}>
         <TouchableOpacity
@@ -82,7 +86,7 @@ const EntertainmentScreen = ({ navigation }) => {
         {/* Title */}
         <Text style={styles.headerTitle}>Entertainment Facilities</Text>
 
-        {/* This view will take up the space after the title to ensure proper centering */}
+        {/* Placeholder for alignment */}
         <View style={{ width: 28 }} />
       </View>
 
@@ -95,20 +99,24 @@ const EntertainmentScreen = ({ navigation }) => {
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           onScroll={handleScroll}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleImagePress(item)}>
+          renderItem={({ item, index }) => (
+            <TouchableOpacity onPress={() => handleImagePress(index)}>
               <Image source={item} style={styles.image} />
             </TouchableOpacity>
           )}
           keyExtractor={(_, index) => index.toString()}
-          style={{ flexGrow: 0 }} // Prevents FlatList from taking extra space
+          contentContainerStyle={{ alignItems: "center" }}
         />
+        {/* Image Count on Main Screen */}
+        <Text style={styles.imageCountText}>
+          {currentIndex + 1} / {images.length}
+        </Text>
         {/* Tap to Zoom note */}
         <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
       </View>
 
-      {/* Modal to display the zoomed image */}
-      {selectedImage && (
+      {/* Modal to display the zoomed images with slider */}
+      {isModalVisible && (
         <Modal visible={isModalVisible} transparent={true}>
           <View style={styles.modalContainer}>
             {/* Back button in zoomed image modal */}
@@ -116,11 +124,33 @@ const EntertainmentScreen = ({ navigation }) => {
               onPress={handleCloseModal}
               style={styles.modalBackButton}
             >
-              <Ionicons name="arrow-back" size={30} color="#fff" />
+              <Ionicons name="close" size={30} color="#fff" />
             </TouchableOpacity>
 
-            {/* Full-screen image */}
-            <Image source={selectedImage} style={styles.fullScreenImage} />
+            {/* Full-screen images with slider */}
+            <FlatList
+              ref={modalFlatListRef}
+              data={images}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={handleModalScroll}
+              renderItem={({ item }) => (
+                <Image source={item} style={styles.fullScreenImage} />
+              )}
+              keyExtractor={(_, index) => index.toString()}
+              initialScrollIndex={selectedImageIndex}
+              getItemLayout={(data, index) => ({
+                length: width,
+                offset: width * index,
+                index,
+              })}
+            />
+
+            {/* Image count displayed below the image */}
+            <Text style={styles.modalImageCountText}>
+              {selectedImageIndex + 1} / {images.length}
+            </Text>
           </View>
         </Modal>
       )}
@@ -153,11 +183,7 @@ const EntertainmentScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f0f0f0", // Light neutral color for contrast
-  },
-  gradientBackground: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "linear-gradient(45deg, #007AFF, #00CFFD, #D0F1FF)", // Add a gradient background for modern appeal
+    backgroundColor: "#fff",
   },
   headerContainer: {
     flexDirection: "row",
@@ -165,58 +191,48 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: "#5ca7d8", // Updated the header color here
+    backgroundColor: "#5ca7d8",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
   backButton: {
-    width: 28, // Match the width of the icon to ensure centering of the title
+    width: 28,
   },
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#fff", // White text for contrast against the gradient
+    color: "#fff",
     textAlign: "center",
-    flex: 1, // This will ensure the title is centered
-    textShadowColor: "rgba(0, 0, 0, 0.2)",
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 6,
+    flex: 1,
   },
   imageSliderContainer: {
     alignItems: "center",
-    justifyContent: "center",
     marginTop: 20,
   },
   image: {
-    width: width * 0.85, // Adjust width to fit one image at a time
-    height: 260, // Adjust height to fit design
-    borderRadius: 20, // Smooth, rounded corners
+    width: width * 0.85,
+    height: 260,
+    borderRadius: 20,
     resizeMode: "cover",
-    marginHorizontal: (width * 0.15) / 2, // Ensure the images are centered and prevent left-shifting
-    shadowColor: "#000", // Shadow for the image
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 8, // Shadow for Android
+    marginHorizontal: (width * 0.15) / 2,
   },
   tapToZoomText: {
     fontSize: 14,
     color: "#007AFF",
     marginTop: 10,
   },
+  imageCountText: {
+    fontSize: 16,
+    color: "#333",
+    marginTop: 10,
+  },
   detailsContainer: {
     flex: 1,
     paddingHorizontal: 20,
-    paddingVertical: 20, // Padding for the text content
-    backgroundColor: "rgba(255, 255, 255, 0.6)", // Slightly transparent background
+    paddingVertical: 20,
+    backgroundColor: "#f5f5f5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backdropFilter: "blur(10px)", // Glassmorphism effect
-    elevation: 4, // Shadow for Android
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 6, // Shadow for iOS
     marginTop: 20,
   },
   title: {
@@ -237,21 +253,27 @@ const styles = StyleSheet.create({
   // Modal Styles
   modalContainer: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.9)", // Semi-transparent background
+    backgroundColor: "#000",
     justifyContent: "center",
     alignItems: "center",
   },
   fullScreenImage: {
-    width: "100%",
-    height: "80%", // Fit the image to 80% of the screen height
-    resizeMode: "contain", // Ensure the image fits within the screen
+    width: width,
+    height: height,
+    resizeMode: "contain",
   },
   modalBackButton: {
     position: "absolute",
-    top: 50, // Positioning the back button at the top
-    left: 20,
-    zIndex: 1, // Ensures it stays on top
+    top: 40,
+    right: 20,
+    zIndex: 10,
+  },
+  modalImageCountText: {
+    position: "absolute",
+    bottom: 30,
+    color: "#fff",
+    fontSize: 18,
   },
 });
 
-export default EntertainmentScreen
+export default EntertainmentScreen;
