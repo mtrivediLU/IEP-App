@@ -13,9 +13,9 @@ import { Ionicons } from "@expo/vector-icons";
 const { width } = Dimensions.get("window");
 
 const images = [
-  require("../../assets/Accommodation/Entertainment-1.png"),
-  require("../../assets/Accommodation/Entertainment-1.png"),
-  require("../../assets/Accommodation/Entertainment-1.png"), // Add your images here
+  require("../../assets/Accommodation/e1.jpg"),
+  require("../../assets/Accommodation/e1.jpg"),
+  require("../../assets/Accommodation/e1.jpg"), // Add your images here
 ];
 
 const EntertainmentScreen = ({ navigation }) => {
