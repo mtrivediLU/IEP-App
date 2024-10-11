@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // To use the navigation for back button
+import { Ionicons } from '@expo/vector-icons'; // For back button icon
 
 const IEPDetails = () => {
+  const navigation = useNavigation(); // Hook to use navigation for the back button
+
   const handleKnowMorePress = () => {
     Linking.openURL('https://www.iep.gtu.ac.in/');
   };
@@ -12,6 +16,14 @@ const IEPDetails = () => {
 
   return (
     <ScrollView style={styles.container}>
+      {/* Header Section */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>IEP Details</Text>
+      </View>
+
       {/* Image Section */}
       <View style={styles.imageContainer}>
         <Image
@@ -55,6 +67,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: '#007AFF',
+  },
+  backButton: {
+    marginRight: 16,
+  },
+  headerTitle: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
   imageContainer: {
     alignItems: 'center',
     position: 'relative',
@@ -71,6 +97,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 3, // For Android shadow
   },
   buttonText: {
     color: '#fff',
@@ -98,7 +129,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     textAlign: 'justify',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   handbookContainer: {
     marginTop: 30,
@@ -108,14 +139,19 @@ const styles = StyleSheet.create({
   },
   handbookButton: {
     backgroundColor: '#007AFF',
-    paddingVertical: 12,
+    paddingVertical: 16,
     paddingHorizontal: 40,
     borderRadius: 25,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5, // Shadow for Android
   },
   handbookButtonText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
   },
 });
 
