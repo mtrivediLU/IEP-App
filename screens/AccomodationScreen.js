@@ -18,7 +18,7 @@ const data = [
     title: "Entertainment",
     description: "Fun room with games and a big screen.",
     screen: "EntertainmentScreen",
-    imageUrl: require("../assets/Accommodation/Entertainment-1.png"),
+    imageUrl: require("../assets/Entertainment.png"),
   },
   {
     id: "2",
