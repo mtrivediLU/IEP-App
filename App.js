@@ -1,4 +1,3 @@
-// Appjs
 import React from "react";
 import { StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,6 +16,7 @@ import PlacesToVisit from "./screens/PlacesToVisit";
 import FAQ from "./screens/FAQ";
 import DiningService from "./screens/DiningService";
 import AlumniContact from "./screens/AlumniContact";
+
 // things to bring
 import DocumentsDetail from "./screens/thingstobring/DocumentsDetail";
 import StationaryDetail from "./screens/thingstobring/StationaryDetail";
@@ -24,7 +24,6 @@ import ElectronicsDetail from "./screens/thingstobring/ElectronicsDetail";
 import EntertainmentDetail from "./screens/thingstobring/EntertainmentDetail";
 import MiscellaneousDetail from "./screens/thingstobring/MiscellaneousDetail";
 import PersonalCareDetail from "./screens/thingstobring/PersonalCareDetail";
-// new screens for Things to Bring
 import ClothingDetail from "./screens/thingstobring/ClothingDetail";
 import SnacksDetail from "./screens/thingstobring/SnacksDetail";
 import FinancialDetail from "./screens/thingstobring/FinancialDetail";
@@ -54,10 +53,18 @@ const HomeStack = () => (
     <Stack.Screen name="RoomScreen" component={RoomScreen} />
     <Stack.Screen name="StudyRoomScreen" component={StudyRoomScreen} />
     <Stack.Screen name="DiningHallScreen" component={DinningHallScreen} />
-    <Stack.Screen
-      name="KitchenServicesScreen"
-      component={KitchenServicesScreen}
-    />
+    <Stack.Screen name="KitchenServicesScreen" component={KitchenServicesScreen} />
+
+    {/* Add new routes for ThingsToBring sub-screens */}
+    <Stack.Screen name="DocumentsDetail" component={DocumentsDetail} />
+    <Stack.Screen name="StationaryDetail" component={StationaryDetail} />
+    <Stack.Screen name="ElectronicsDetail" component={ElectronicsDetail} />
+    <Stack.Screen name="EntertainmentDetail" component={EntertainmentDetail} />
+    <Stack.Screen name="MiscellaneousDetail" component={MiscellaneousDetail} />
+    <Stack.Screen name="PersonalCareDetail" component={PersonalCareDetail} />
+    <Stack.Screen name="ClothingDetail" component={ClothingDetail} />
+    <Stack.Screen name="SnacksDetail" component={SnacksDetail} />
+    <Stack.Screen name="FinancialDetail" component={FinancialDetail} />
   </Stack.Navigator>
 );
 
