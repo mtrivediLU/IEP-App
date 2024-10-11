@@ -90,7 +90,7 @@ export default function App() {
             left: 20,
             right: 20,
             borderRadius: 30,
-            height: 50,
+            height: 60,
             shadowColor: "#000",
             shadowOpacity: 0.1,
             shadowOffset: { width: 0, height: 5 },
