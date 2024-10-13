@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: "absolute",
-    top: 40, // Adjust the top value to place it properly depending on the status bar height on iOS
+    top: 10, // Adjust the top value to place it properly depending on the status bar height on iOS
     left: 10,
     zIndex: 1,
   },
