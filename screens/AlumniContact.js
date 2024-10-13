@@ -50,6 +50,17 @@ const alumniData = [
     instagram: "https://instagram.com/vatsalya", // Replace with actual Instagram URL
     linkedin: "https://linkedin.com/in/vatsalya", // Replace with actual LinkedIn URL
   },
+  {
+    id: "4",
+    name: "Mihir Trivedi",
+    role: "Teaching Assistant",
+    details: "IEP 2016",
+    image: require("../assets/Contacts/Mihir.png"), // Replace with actual image path
+    phone: "+91 8758945141",
+    email: "Vatsalyadabhi2003@gmail.com",
+    instagram: "https://www.instagram.com/_mihir_trivedi/", // Replace with actual Instagram URL
+    linkedin: "https://www.linkedin.com/in/mihirtrivedigm/", // Replace with actual LinkedIn URL
+  },
 ];
 
 const AlumniContacts = ({ navigation }) => {
