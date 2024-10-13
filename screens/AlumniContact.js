@@ -21,7 +21,7 @@ const alumniData = [
     role: "Student (CSE)",
     details: "IEP 2024",
     image: require("../assets/Contacts/Divyesh.jpg"), // Replace with actual image path
-    phone: "Government Engineering College Modasa",
+    phone: "+91 8980957241",
     email: "divyesh@example.com",
     instagram: "https://www.instagram.com/divyeshxthakur/", // Replace with actual Instagram URL
     linkedin: "https://www.linkedin.com/in/divyesh-thakur-82b75b220/", // Replace with actual LinkedIn URL
@@ -32,10 +32,12 @@ const alumniData = [
     role: "Student (CSE)",
     details: "IEP 2024",
     image: require("../assets/Contacts/Achyut.jpg"), // Replace with actual image path
-    phone: "+91 9123456789",
-    email: "achyut@example.com",
-    instagram: "https://instagram.com/achyut", // Replace with actual Instagram URL
-    linkedin: "https://linkedin.com/in/achyut", // Replace with actual LinkedIn URL
+    phone: "+91 9484673826",
+    email: "achyutdobaria@gmail.com",
+    instagram:
+      "https://www.instagram.com/achyut_dobaria/profilecard/?igsh=YThsZ2lveXRwamFi", // Replace with actual Instagram URL
+    linkedin:
+      "https://www.linkedin.com/in/achyut-dobaria-3b0710201?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ", // Replace with actual LinkedIn URL
   },
   {
     id: "3",
