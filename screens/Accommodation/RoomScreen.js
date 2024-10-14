@@ -76,7 +76,7 @@ const RoomsScreen = ({ navigation }) => {
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Ionicons name="arrow-back" size={28} color="#fff" />
+            <Ionicons name="arrow-back" size={28} color="#000" />
           </TouchableOpacity>
 
           {/* Title */}
@@ -155,11 +155,15 @@ const RoomsScreen = ({ navigation }) => {
           <View style={styles.listContainer}>
             <Text style={styles.listItem}>• Single Rooms</Text>
             <Text style={styles.listItem}>• Double Rooms</Text>
-            <Text style={styles.sectionTitle}>Each room comes furnished with:</Text>
+            <Text style={styles.sectionTitle}>
+              Each room comes furnished with:
+            </Text>
             <Text style={styles.listItem}>• A bed</Text>
             <Text style={styles.listItem}>• A desk and chair</Text>
             <Text style={styles.listItem}>• A wardrobe/closet</Text>
-            <Text style={styles.listItem}>• A bed with two built-in drawers</Text>
+            <Text style={styles.listItem}>
+              • A bed with two built-in drawers
+            </Text>
             <Text style={styles.listItem}>• A bookshelf</Text>
             <Text style={styles.listItem}>• A table fan</Text>
             <Text style={styles.listItem}>• Trash bin</Text>
@@ -171,13 +175,16 @@ const RoomsScreen = ({ navigation }) => {
           <Text style={styles.title}>Dormitory Safety and Security</Text>
           <View style={styles.listContainer}>
             <Text style={styles.listItem}>
-              • 24/7 Security: Security personnel are on duty around the clock to ensure student safety.
+              • 24/7 Security: Security personnel are on duty around the clock
+              to ensure student safety.
             </Text>
             <Text style={styles.listItem}>
-              • Access Control: Entry to the dormitory is restricted to residents and authorized personnel only, using key cards.
+              • Access Control: Entry to the dormitory is restricted to
+              residents and authorized personnel only, using key cards.
             </Text>
             <Text style={styles.listItem}>
-              • Emergency Procedures: Clearly posted emergency exit plans and fire drills ensure that students are prepared for any situation.
+              • Emergency Procedures: Clearly posted emergency exit plans and
+              fire drills ensure that students are prepared for any situation.
             </Text>
           </View>
         </View>
@@ -200,7 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
-    backgroundColor: "#5ca7d8",
+
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
@@ -210,7 +217,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
     flex: 1,
   },
@@ -243,6 +250,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: 20,
+    marginBottom: 80,
   },
   title: {
     fontSize: 24,

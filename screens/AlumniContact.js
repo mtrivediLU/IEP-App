@@ -46,9 +46,10 @@ const alumniData = [
     details: "IEP 2024",
     image: require("../assets/Contacts/vatsalya.jpg"), // Replace with actual image path
     phone: "+91 8758945141",
-    email: "Vatsalyadabhi2003@gmail.com",
-    instagram: "https://instagram.com/vatsalya", // Replace with actual Instagram URL
-    linkedin: "https://linkedin.com/in/vatsalya", // Replace with actual LinkedIn URL
+    email: "Vatsalyadabhi2020@gmail.com",
+    instagram:
+      "https://www.instagram.com/vtsly_ofc?igsh=bjh6eDg2eHk1cGM5&utm_source=qr", // Replace with actual Instagram URL
+    linkedin: "https://www.linkedin.com/in/vatsalya-dabhi", // Replace with actual LinkedIn URL
   },
   {
     id: "4",
