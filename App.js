@@ -36,6 +36,17 @@ import StudyRoomScreen from "./screens/Accommodation/StudyRoomScreen";
 import DinningHallScreen from "./screens/Accommodation/DinningHallScreen";
 import KitchenServicesScreen from "./screens/Accommodation/KitchenServicesScreen";
 
+// Import screens from the Placetovisit folder
+import Bellpark from "./screens/Placetovisit/bellpark";
+import GroceryStores from "./screens/Placetovisit/GroceryStores";
+import LUPrivateBeach from "./screens/Placetovisit/LUprivatebeach";
+import MoonlightBeach from "./screens/Placetovisit/Moonlightbeach";
+import NewSudburyMall from "./screens/Placetovisit/newsudburymall";
+import OnapingFalls from "./screens/Placetovisit/Onapingfalls";
+import ScienceNorth from "./screens/Placetovisit/Sciencenorth";
+import SliverCity from "./screens/Placetovisit/SliverCity";
+import TrailsNearSudbury from "./screens/Placetovisit/Trailsnearsudbury";
+
 // Create Stack Navigator for Home-related screens
 const Stack = createStackNavigator();
 const HomeStack = () => (
@@ -48,6 +59,8 @@ const HomeStack = () => (
     <Stack.Screen name="FAQ" component={FAQ} />
     <Stack.Screen name="DiningService" component={DiningService} />
     <Stack.Screen name="AlumniContact" component={AlumniContact} />
+    
+    {/* Accommodation screens */}
     <Stack.Screen name="LivingAreaScreen" component={LivingAreaScreen} />
     <Stack.Screen name="EntertainmentScreen" component={EntertainmentScreen} />
     <Stack.Screen name="RoomScreen" component={RoomScreen} />
@@ -55,7 +68,7 @@ const HomeStack = () => (
     <Stack.Screen name="DiningHallScreen" component={DinningHallScreen} />
     <Stack.Screen name="KitchenServicesScreen" component={KitchenServicesScreen} />
 
-    {/* Add new routes for ThingsToBring sub-screens */}
+    {/* Things to bring screens */}
     <Stack.Screen name="DocumentsDetail" component={DocumentsDetail} />
     <Stack.Screen name="StationaryDetail" component={StationaryDetail} />
     <Stack.Screen name="ElectronicsDetail" component={ElectronicsDetail} />
@@ -65,6 +78,17 @@ const HomeStack = () => (
     <Stack.Screen name="ClothingDetail" component={ClothingDetail} />
     <Stack.Screen name="SnacksDetail" component={SnacksDetail} />
     <Stack.Screen name="FinancialDetail" component={FinancialDetail} />
+
+    {/* Placetovisit sub-pages */}
+    <Stack.Screen name="Bellpark" component={Bellpark} />
+    <Stack.Screen name="GroceryStores" component={GroceryStores} />
+    <Stack.Screen name="LUPrivateBeach" component={LUPrivateBeach} />
+    <Stack.Screen name="MoonlightBeach" component={MoonlightBeach} />
+    <Stack.Screen name="NewSudburyMall" component={NewSudburyMall} />
+    <Stack.Screen name="OnapingFalls" component={OnapingFalls} />
+    <Stack.Screen name="ScienceNorth" component={ScienceNorth} />
+    <Stack.Screen name="SliverCity" component={SliverCity} />
+    <Stack.Screen name="TrailsNearSudbury" component={TrailsNearSudbury} />
   </Stack.Navigator>
 );
 

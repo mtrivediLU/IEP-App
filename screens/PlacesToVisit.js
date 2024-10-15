@@ -8,30 +8,58 @@ const placesData = [
     id: '1',
     title: 'Bell Park',
     description: 'Sudbury, near science north',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Replace with actual image path
   },
   {
     id: '2',
-    title: 'Clifton Hill',
+    title: 'Science North ',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Accommodation/e1.jpg'), // Replace with actual image path
   },
   {
     id: '3',
-    title: 'Canada\'s Wonderland',
+    title: 'LU Private Beach',
     description: 'Niagara Falls',
     image: require('../assets/places.png'), // Replace with actual image path
   },
   {
     id: '4',
-    title: 'Niagara River',
+    title: 'Moonlight Beach',
     description: 'Niagara Falls',
     image: require('../assets/places.png'), // Replace with actual image path
   },
-  // Add more places as needed
+  {
+    id: '5',
+    title: 'New Sudbury Mall',
+    description: 'Niagara Falls',
+    image: require('../assets/places.png'), // Replace with actual image path
+  },
+  {
+    id: '6',
+    title: 'Grocery Stores',
+    description: 'Niagara Falls',
+    image: require('../assets/places.png'), // Replace with actual image path
+  },
+  {
+    id: '7',
+    title: 'Onaping Falls',
+    description: 'Niagara Falls',
+    image: require('../assets/places.png'), // Replace with actual image path
+  },
+  {
+    id: '8',
+    title: 'Slivercity Theatre',
+    description: 'Niagara Falls',
+    image: require('../assets/places.png'), // Replace with actual image path
+  },{
+    id: '9',
+    title: 'Trails Near Sudbury',
+    description: 'Niagara Falls',
+    image: require('../assets/places.png'), // Replace with actual image path
+  },
 ];
 
-const PlacesToVisit = () => {
+const PlacesToVisit = ({ navigation }) => {
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.card}>
       <Image source={item.image} style={styles.cardImage} />
@@ -39,18 +67,26 @@ const PlacesToVisit = () => {
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardDescription}>{item.description}</Text>
       </View>
-      <Ionicons name="arrow-forward-circle-outline" size={30} color="#007AFF" />
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.header}>Places to Visit</Text>
+      {/* Header with back button */}
+      <View style={styles.headerContainer}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Ionicons name="arrow-back" size={28} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.header}>Places to Visit</Text>
+      </View>
+
+      {/* FlatList with places to visit */}
       <FlatList
         data={placesData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
+        showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );
@@ -59,48 +95,66 @@ const PlacesToVisit = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f4f8', // Light background color for a modern look
+  },
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    backgroundColor: '#007AFF',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    marginBottom: 15,
+  },
+  backButton: {
+    marginRight: 16,
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
+    color: '#fff',
     textAlign: 'center',
-    color: '#007AFF',
-    marginVertical: 20,
+    flex: 1,
   },
   list: {
     paddingHorizontal: 16,
     paddingBottom: 16,
   },
   card: {
-    backgroundColor: '#f1f1f1',
-    borderRadius: 12,
+    backgroundColor: '#fff',
+    borderRadius: 20,
     marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
+    overflow: 'hidden',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
     elevation: 5,
   },
   cardImage: {
-    width: 100,
-    height: 80,
-    borderRadius: 8,
-    marginRight: 10,
+    width: '100%',
+    height: 200,
+    resizeMode: 'cover',
   },
   textContainer: {
-    flex: 1,
+    padding: 16,
+    backgroundColor: '#fff',
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
+    color: '#007AFF',
   },
   cardDescription: {
     fontSize: 14,
     color: '#666',
+    marginTop: 5,
   },
 });
 
