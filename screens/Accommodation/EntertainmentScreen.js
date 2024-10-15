@@ -80,7 +80,7 @@ const EntertainmentScreen = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={28} color="#000" />
+          <Ionicons name="arrow-back" size={28} color="#fff" />
         </TouchableOpacity>
 
         {/* Title */}
@@ -160,8 +160,7 @@ const EntertainmentScreen = ({ navigation }) => {
         <Text style={styles.title}>Facilities Available</Text>
         <View style={styles.listContainer}>
           <Text style={styles.listItem}>
-            - Access to on-campus fitness centres, sports facilities, and
-            recreational activities, including gyms and sports fields.
+            - Access to on-campus fitness centres, sports facilities, and recreational activities, including gyms and sports fields.
           </Text>
           <Text style={styles.listItem}>
             - Designated social spaces within the residences.
@@ -170,8 +169,7 @@ const EntertainmentScreen = ({ navigation }) => {
             - Various types of game equipment will be provided by the porter.
           </Text>
           <Text style={styles.listItem}>
-            - Access to a theatre room, where you can entertain yourself on a
-            large screen.
+            - Access to a theatre room, where you can entertain yourself on a large screen.
           </Text>
           <Text style={styles.listItem}>
             - Access to indoor games like pool and table tennis.
@@ -193,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
-
+    backgroundColor: "#5ca7d8",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
@@ -203,17 +201,16 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
+    color: "#fff",
     textAlign: "center",
     flex: 1,
   },
   imageSliderContainer: {
-    // width: "100%",
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 20,
   },
   image: {
-    width: width * 0.87,
+    width: width * 0.85,
     height: 260,
     borderRadius: 20,
     resizeMode: "cover",

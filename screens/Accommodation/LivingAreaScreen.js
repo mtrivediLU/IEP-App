@@ -76,7 +76,7 @@ const LivingAreaScreen = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={28} color="#000" />
+          <Ionicons name="arrow-back" size={28} color="#fff" />
         </TouchableOpacity>
 
         {/* Title */}
@@ -152,7 +152,9 @@ const LivingAreaScreen = ({ navigation }) => {
       <View style={styles.detailsContainer}>
         <Text style={styles.title}>Living Area</Text>
         <View style={styles.listContainer}>
-          <Text style={styles.listItem}>• Spacious couches for seating.</Text>
+          <Text style={styles.listItem}>
+            • Spacious couches for seating.
+          </Text>
           <Text style={styles.listItem}>
             • Flat-screen TV for watching shows and movies.
           </Text>
@@ -179,6 +181,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
+    backgroundColor: "#5ca7d8",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
@@ -188,7 +191,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
+    color: "#fff",
     textAlign: "center",
     flex: 1,
   },

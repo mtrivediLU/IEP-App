@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,35 +7,63 @@ import {
   TouchableOpacity,
   FlatList,
   Dimensions,
+  Modal,
+  ScrollView,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const images = [
-  require("../../assets/Accommodation/e1.jpg"),
-  require("../../assets/Accommodation/e1.jpg"),
-  require("../../assets/Accommodation/e1.jpg"), // Add your images here
+  require("../../assets/Accommodation/d1.jpg"),
+  require("../../assets/Accommodation/d2.jpg"),
+  require("../../assets/Accommodation/d3.jpg"), // Add your images here
+  require("../../assets/Accommodation/d4.jpg"), // Add your images here
+  require("../../assets/Accommodation/d5.jpg"), // Add your images here
 ];
 
-const EntertainmentScreen = ({ navigation }) => {
+const DiningHallScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
+  const modalFlatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
-  // Function to handle scrolling and set the current index
   const handleScroll = (event) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
-    const newIndex = Math.floor(contentOffsetX / width);
+    const newIndex = Math.floor(contentOffsetX / (width * 0.85));
     setCurrentIndex(newIndex);
   };
 
-  // Function to handle when the user finishes swiping
-  const handleMomentumScrollEnd = () => {
-    if (currentIndex === images.length - 1) {
-      // If last image, scroll back to the first image
-      flatListRef.current.scrollToIndex({ index: 0, animated: true });
-      setCurrentIndex(0);
+  const handleNextImage = () => {
+    let nextIndex = currentIndex + 1;
+    if (nextIndex >= images.length) {
+      nextIndex = 0;
     }
+    flatListRef.current.scrollToIndex({ index: nextIndex, animated: true });
+    setCurrentIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNextImage();
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [currentIndex]);
+
+  const handleImagePress = (index) => {
+    setSelectedImageIndex(index);
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleModalScroll = (event) => {
+    const contentOffsetX = event.nativeEvent.contentOffset.x;
+    const newIndex = Math.floor(contentOffsetX / width);
+    setSelectedImageIndex(newIndex);
   };
 
   return (
@@ -46,42 +74,111 @@ const EntertainmentScreen = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={28} color="#007AFF" />
+          <Ionicons name="arrow-back" size={28} color="#fff" />
         </TouchableOpacity>
 
         {/* Title */}
-        <Text style={styles.headerTitle}>Dinning Hall </Text>
+        <Text style={styles.headerTitle}>Dining Hall</Text>
 
-        {/* This view will take up the space after the title to ensure proper centering */}
         <View style={{ width: 28 }} />
       </View>
 
       {/* Swipeable Images */}
-      <FlatList
-        ref={flatListRef}
-        data={images}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        snapToAlignment="center"
-        decelerationRate="fast"
-        onScroll={handleScroll}
-        renderItem={({ item }) => <Image source={item} style={styles.image} />}
-        keyExtractor={(_, index) => index.toString()}
-        style={{ flexGrow: 0 }} // Prevents FlatList from taking extra space
-      />
+      <View style={styles.imageSliderContainer}>
+        <FlatList
+          ref={flatListRef}
+          data={images}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={handleScroll}
+          renderItem={({ item, index }) => (
+            <TouchableOpacity onPress={() => handleImagePress(index)}>
+              <Image source={item} style={styles.image} />
+            </TouchableOpacity>
+          )}
+          keyExtractor={(_, index) => index.toString()}
+          contentContainerStyle={{ alignItems: "center" }}
+        />
+        {/* Image Count */}
+        <Text style={styles.imageCountText}>
+          {currentIndex + 1} / {images.length}
+        </Text>
+        <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
+      </View>
 
-      {/* Details Section */}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}> Dinning Hall Services </Text>
+      {/* Modal for zoomed images */}
+      {isModalVisible && (
+        <Modal visible={isModalVisible} transparent={true}>
+          <View style={styles.modalContainer}>
+            <TouchableOpacity
+              onPress={handleCloseModal}
+              style={styles.modalBackButton}
+            >
+              <Ionicons name="close" size={30} color="#fff" />
+            </TouchableOpacity>
+
+            <FlatList
+              ref={modalFlatListRef}
+              data={images}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={handleModalScroll}
+              renderItem={({ item }) => (
+                <Image source={item} style={styles.fullScreenImage} />
+              )}
+              keyExtractor={(_, index) => index.toString()}
+              initialScrollIndex={selectedImageIndex}
+              getItemLayout={(data, index) => ({
+                length: width,
+                offset: width * index,
+                index,
+              })}
+            />
+
+            {/* Image count in modal */}
+            <Text style={styles.modalImageCountText}>
+              {selectedImageIndex + 1} / {images.length}
+            </Text>
+          </View>
+        </Modal>
+      )}
+
+      {/* Scrollable Details Section */}
+      <ScrollView style={styles.detailsContainer}>
+        <Text style={styles.title}>Cafeteria – Great Hall</Text>
 
         <Text style={styles.description}>
-          Our Entertainment Facility offers both indoor and outdoor games for
-          all interests. Enjoy a competitive game of table tennis, chess, or
-          carrom, or explore outdoor activities like basketball, badminton, or
-          volleyball. Fun and relaxation await!
+          - The Great Hall is the primary dining facility on campus. It provides cold drinks (coke, 7up, lemonade, etc.), cappuccino, hot chocolate, French vanilla, bread, buns, jam, butter, and more during meal times only. {"\n"}
+          - Lunch is served daily, except on Saturday and Sunday. {"\n"}
+          - Dinner is served only for the first 5 days of the week and during final exams.
         </Text>
-      </View>
+
+        <Text style={styles.subTitle}>Cafés and Quick-Service Locations</Text>
+
+        <Text style={styles.description}>
+          <Text style={styles.boldText}>Tim Hortons{"\n"}</Text>
+          - Location: Classroom building{"\n"}
+          - Offerings: Coffee, tea, pastries, sandwiches, and other quick snacks.{"\n"}
+          - Operating Hours: Open early morning to 3 pm during vacation.{"\n\n"}
+
+          <Text style={styles.boldText}>Subway{"\n"}</Text>
+          - Location: Near Great Hall{"\n"}
+          - Offerings: Freshly made subs, salads, and wraps with various toppings and sauces.{"\n"}
+          - Operating Hours: Closed during the vacation period.{"\n\n"}
+
+          <Text style={styles.boldText}>Starbucks{"\n"}</Text>
+          - Location: Near Library{"\n"}
+          - Offerings: Specialty coffee drinks, teas, pastries, and light snacks.{"\n"}
+          - Operating Hours: Closed during the vacation.{"\n\n"}
+
+          <Text style={styles.boldText}>Café-Bistro{"\n"}</Text>
+          - Location: East Residence building{"\n"}
+          - Offerings: A range of hot and cold beverages and fresh food choices, including salads, samosas, and Panini (grilled sandwiches).{"\n"}
+          - Operating Hours: Open from morning to evening, perfect for study breaks and social gatherings.
+        </Text>
+      </ScrollView>
     </View>
   );
 };
@@ -97,47 +194,97 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 16,
     paddingVertical: 10,
+    backgroundColor: "#5ca7d8",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   backButton: {
-    width: 28, // Match the width of the icon to ensure centering of the title
+    width: 28,
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    color: "#007AFF",
+    color: "#fff",
     textAlign: "center",
-    flex: 1, // This will ensure the title is centered
+    flex: 1,
+  },
+  imageSliderContainer: {
+    alignItems: "center",
+    marginTop: 20,
   },
   image: {
-    width: 450,
-    height: 350, // Height of the image
+    width: width * 0.85,
+    height: 260,
+    borderRadius: 20,
     resizeMode: "cover",
+    marginHorizontal: (width * 0.15) / 2,
+  },
+  tapToZoomText: {
+    fontSize: 14,
+    color: "#007AFF",
+    marginTop: 10,
+  },
+  imageCountText: {
+    fontSize: 16,
+    color: "#333",
+    marginTop: 10,
   },
   detailsContainer: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 16, // Padding for the text content
-    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    backgroundColor: "#f5f5f5",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    elevation: 4, // Shadow for Android
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4, // Shadow for iOS
+    marginTop: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: "bold",
     color: "#333",
     marginBottom: 10,
+    textAlign: "center",
+  },
+  subTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#5ca7d8",
+    marginTop: 15,
+    marginBottom: 10,
   },
   description: {
-    fontSize: 19,
+    fontSize: 18,
     color: "#333",
-    marginTop: 8, // Reduced the margin to keep the description closer to the title
+    marginTop: 10,
     lineHeight: 24,
+  },
+  boldText: {
+    fontWeight: "bold",
+    color: "#007AFF",
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "#000",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fullScreenImage: {
+    width: width,
+    height: height,
+    resizeMode: "contain",
+  },
+  modalBackButton: {
+    position: "absolute",
+    top: 40,
+    right: 20,
+    zIndex: 10,
+  },
+  modalImageCountText: {
+    position: "absolute",
+    bottom: 30,
+    color: "#fff",
+    fontSize: 18,
   },
 });
 
-export default EntertainmentScreen;
+export default DiningHallScreen;
