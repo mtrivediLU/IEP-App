@@ -33,17 +33,17 @@ import EntertainmentScreen from "./screens/Accommodation/EntertainmentScreen";
 import RoomScreen from "./screens/Accommodation/RoomScreen";
 import LivingAreaScreen from "./screens/Accommodation/LivingAreaScreen";
 import StudyRoomScreen from "./screens/Accommodation/StudyRoomScreen";
-import DinningHallScreen from "./screens/Accommodation/DinningHallScreen";
+import DiningHallScreen from "./screens/Accommodation/DinningHallScreen";
 import KitchenServicesScreen from "./screens/Accommodation/KitchenServicesScreen";
 
 // Import screens from the Placetovisit folder
-import Bellpark from "./screens/Placetovisit/bellpark";
+import BellPark from "./screens/Placetovisit/BellPark";
 import GroceryStores from "./screens/Placetovisit/GroceryStores";
 import LUPrivateBeach from "./screens/Placetovisit/LUprivatebeach";
 import MoonlightBeach from "./screens/Placetovisit/Moonlightbeach";
-import NewSudburyMall from "./screens/Placetovisit/newsudburymall";
+import NewSudburyMall from "./screens/Placetovisit/Newsudburymall";
 import OnapingFalls from "./screens/Placetovisit/Onapingfalls";
-import ScienceNorth from "./screens/Placetovisit/Sciencenorth";
+import ScienceNorth from "./screens/Placetovisit/ScienceNorth";
 import SliverCity from "./screens/Placetovisit/SliverCity";
 import TrailsNearSudbury from "./screens/Placetovisit/Trailsnearsudbury";
 
@@ -59,13 +59,13 @@ const HomeStack = () => (
     <Stack.Screen name="FAQ" component={FAQ} />
     <Stack.Screen name="DiningService" component={DiningService} />
     <Stack.Screen name="AlumniContact" component={AlumniContact} />
-    
+
     {/* Accommodation screens */}
     <Stack.Screen name="LivingAreaScreen" component={LivingAreaScreen} />
     <Stack.Screen name="EntertainmentScreen" component={EntertainmentScreen} />
     <Stack.Screen name="RoomScreen" component={RoomScreen} />
     <Stack.Screen name="StudyRoomScreen" component={StudyRoomScreen} />
-    <Stack.Screen name="DiningHallScreen" component={DinningHallScreen} />
+    <Stack.Screen name="DiningHallScreen" component={DiningHallScreen} />
     <Stack.Screen name="KitchenServicesScreen" component={KitchenServicesScreen} />
 
     {/* Things to bring screens */}
@@ -80,14 +80,14 @@ const HomeStack = () => (
     <Stack.Screen name="FinancialDetail" component={FinancialDetail} />
 
     {/* Placetovisit sub-pages */}
-    <Stack.Screen name="Bellpark" component={Bellpark} />
-    <Stack.Screen name="GroceryStores" component={GroceryStores} />
+    <Stack.Screen name="BellPark" component={BellPark} />
+    <Stack.Screen name="ScienceNorth" component={ScienceNorth} />
     <Stack.Screen name="LUPrivateBeach" component={LUPrivateBeach} />
     <Stack.Screen name="MoonlightBeach" component={MoonlightBeach} />
     <Stack.Screen name="NewSudburyMall" component={NewSudburyMall} />
+    <Stack.Screen name="GroceryStores" component={GroceryStores} />
     <Stack.Screen name="OnapingFalls" component={OnapingFalls} />
-    <Stack.Screen name="ScienceNorth" component={ScienceNorth} />
-    <Stack.Screen name="SliverCity" component={SliverCity} />
+    <Stack.Screen name="SlivercityTheatre" component={SliverCity} />
     <Stack.Screen name="TrailsNearSudbury" component={TrailsNearSudbury} />
   </Stack.Navigator>
 );

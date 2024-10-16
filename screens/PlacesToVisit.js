@@ -2,66 +2,81 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
+// Data for places to visit
 const placesData = [
   {
     id: '1',
     title: 'Bell Park',
     description: 'Sudbury, near science north',
-    image: require('../assets/Placetovisit/b3.jpg'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'BellPark', // The target screen name for navigation
   },
   {
     id: '2',
-    title: 'Science North ',
+    title: 'Science North',
     description: 'Niagara Falls',
-    image: require('../assets/Accommodation/e1.jpg'), // Replace with actual image path
-  },
-  {
+    image: require('../assets/Placetovisit/b1.jpg'), // Ensure valid image path
+    screen: 'ScienceNorth',
+  },{
     id: '3',
     title: 'LU Private Beach',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
-  },
-  {
+    image: require('../assets/Placetovisit/b1.jpg'), // Ensure valid image path
+    screen: 'LUPrivateBeach',
+  },{
     id: '4',
     title: 'Moonlight Beach',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'MoonlightBeach',
   },
   {
     id: '5',
     title: 'New Sudbury Mall',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'NewSudburyMall',
   },
   {
     id: '6',
     title: 'Grocery Stores',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
-  },
-  {
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'GroceryStores',
+  },{
     id: '7',
     title: 'Onaping Falls',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'OnapingFalls',
   },
   {
     id: '8',
-    title: 'Slivercity Theatre',
+    title: 'Silvercity Theatre',
     description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
-  },{
-    id: '9',
-    title: 'Trails Near Sudbury',
-    description: 'Niagara Falls',
-    image: require('../assets/places.png'), // Replace with actual image path
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'SlivercityTheatre',
   },
+  {
+    id: '9',
+    title: 'Trails New Sudbury',
+    description: 'Niagara Falls',
+    image: require('../assets/Placetovisit/b3.jpg'), // Ensure valid image path
+    screen: 'TrailsNearSudbury',
+  },
+  // Add more places...
 ];
 
-const PlacesToVisit = ({ navigation }) => {
+const PlacesToVisit = () => {
+  const navigation = useNavigation(); // Use navigation for navigating between screens
+
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigation.navigate(item.screen)} // Navigate to the screen based on the 'screen' field
+    >
       <Image source={item.image} style={styles.cardImage} />
       <View style={styles.textContainer}>
         <Text style={styles.cardTitle}>{item.title}</Text>
@@ -80,7 +95,7 @@ const PlacesToVisit = ({ navigation }) => {
         <Text style={styles.header}>Places to Visit</Text>
       </View>
 
-      {/* FlatList with places to visit */}
+      {/* FlatList for displaying places */}
       <FlatList
         data={placesData}
         renderItem={renderItem}
