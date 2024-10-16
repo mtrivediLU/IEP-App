@@ -37,13 +37,13 @@ import DiningHallScreen from "./screens/Accommodation/DinningHallScreen";
 import KitchenServicesScreen from "./screens/Accommodation/KitchenServicesScreen";
 
 // Import screens from the Placetovisit folder
-import BellPark from "./screens/Placetovisit/BellPark";
+import BellPark from "./screens/Placetovisit/bellpark";
 import GroceryStores from "./screens/Placetovisit/GroceryStores";
 import LUPrivateBeach from "./screens/Placetovisit/LUprivatebeach";
 import MoonlightBeach from "./screens/Placetovisit/Moonlightbeach";
 import NewSudburyMall from "./screens/Placetovisit/Newsudburymall";
 import OnapingFalls from "./screens/Placetovisit/Onapingfalls";
-import ScienceNorth from "./screens/Placetovisit/ScienceNorth";
+import ScienceNorth from "./screens/Placetovisit/Sciencenorth";
 import SliverCity from "./screens/Placetovisit/SliverCity";
 import TrailsNearSudbury from "./screens/Placetovisit/Trailsnearsudbury";
 
@@ -66,7 +66,10 @@ const HomeStack = () => (
     <Stack.Screen name="RoomScreen" component={RoomScreen} />
     <Stack.Screen name="StudyRoomScreen" component={StudyRoomScreen} />
     <Stack.Screen name="DiningHallScreen" component={DiningHallScreen} />
-    <Stack.Screen name="KitchenServicesScreen" component={KitchenServicesScreen} />
+    <Stack.Screen
+      name="KitchenServicesScreen"
+      component={KitchenServicesScreen}
+    />
 
     {/* Things to bring screens */}
     <Stack.Screen name="DocumentsDetail" component={DocumentsDetail} />
