@@ -41,7 +41,7 @@ import BellPark from "./screens/Placetovisit/bellpark"; // lowercase
 import GroceryStores from "./screens/Placetovisit/GroceryStores";
 import LUPrivateBeach from "./screens/Placetovisit/LUprivatebeach";
 import MoonlightBeach from "./screens/Placetovisit/Moonlightbeach";
-import NewSudburyMall from "./screens/Placetovisit/Newsudburymall";
+import NewSudburyMall from "./screens/Placetovisit/newsudburymall";
 import OnapingFalls from "./screens/Placetovisit/Onapingfalls";
 import ScienceNorth from "./screens/Placetovisit/Sciencenorth";
 import SliverCity from "./screens/Placetovisit/SliverCity";
