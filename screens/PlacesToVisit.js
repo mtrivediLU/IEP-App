@@ -31,7 +31,7 @@ const placesData = [
     id: "3",
     title: "LU Private Beach",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b1.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/lu1.jpg"), // Ensure valid image path
     screen: "LUPrivateBeach",
   },
   {
