@@ -111,11 +111,25 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
 
-  scrollContainer: { paddingHorizontal: 16, paddingBottom: 16 },
-  title2: { fontSize: 18, fontWeight: "bold", marginTop: 16 },
-  title: { fontSize: 22, fontWeight: "bold", marginBottom: 8 },
+  scrollContainer: {
+    paddingHorizontal: 16,
+    paddingBottom: 80, // Increased padding to prevent overlap with bottom navigation
+  },
+  title2: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 16,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 8,
+  },
   card: {
     borderRadius: 12,
     height: 150,
@@ -126,14 +140,38 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
-  cardContent: { flexDirection: "row", alignItems: "center", height: "100%" },
-  rowLeft: { flexDirection: "row" },
-  rowRight: { flexDirection: "row-reverse" },
-  icon: { width: 150, height: "100%", resizeMode: "cover" },
-  iconLeft: { marginRight: 16 },
-  textContainer: { flex: 1, paddingHorizontal: 10 },
-  cardTitle: { fontSize: 20, fontWeight: "bold", marginBottom: 4 },
-  cardLink: { fontSize: 14, color: "#888" },
+  cardContent: {
+    flexDirection: "row",
+    alignItems: "center",
+    height: "100%",
+  },
+  rowLeft: {
+    flexDirection: "row",
+  },
+  rowRight: {
+    flexDirection: "row-reverse",
+  },
+  icon: {
+    width: 150,
+    height: "100%",
+    resizeMode: "cover",
+  },
+  iconLeft: {
+    marginRight: 16,
+  },
+  textContainer: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  cardTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  cardLink: {
+    fontSize: 14,
+    color: "#888",
+  },
 });
 
 export default HomeScreen;
