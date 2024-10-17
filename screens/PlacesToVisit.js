@@ -38,42 +38,42 @@ const placesData = [
     id: "4",
     title: "Moonlight Beach",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/m2.jpg"), // Ensure valid image path
     screen: "MoonlightBeach",
   },
   {
     id: "5",
     title: "New Sudbury Mall",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/n1.jpg"), // Ensure valid image path
     screen: "NewSudburyMall",
   },
   {
     id: "6",
     title: "Grocery Stores",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/s1.jpg"), // Ensure valid image path
     screen: "GroceryStores",
   },
   {
     id: "7",
     title: "Onaping Falls",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/o1.jpg"), // Ensure valid image path
     screen: "OnapingFalls",
   },
   {
     id: "8",
     title: "Silvercity Theatre",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/sc1.jpg"), // Ensure valid image path
     screen: "SlivercityTheatre",
   },
   {
     id: "9",
     title: "Trails New Sudbury",
     description: "Niagara Falls",
-    image: require("../assets/Placetovisit/b3.jpg"), // Ensure valid image path
+    image: require("../assets/Placetovisit/t2.jpg"), // Ensure valid image path
     screen: "TrailsNearSudbury",
   },
   // Add more places...
@@ -115,6 +115,7 @@ const PlacesToVisit = () => {
         keyExtractor={(item) => item.id}
         contentContainerStyle={styles.list}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={<View style={{ height: 80 }} />} // Adds space at the bottom
       />
     </SafeAreaView>
   );

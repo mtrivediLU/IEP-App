@@ -13,25 +13,30 @@ import { useNavigation } from "@react-navigation/native";
 const faqData = [
   {
     id: "1",
-    question: "Is Wi-Fi available in all rooms?",
+    question: "Is there any type of local travel card we need to make for local traveling?",
     answer:
-      "Yes, complimentary Wi-Fi is provided in all rooms and common areas. The connection is fast and reliable for work or entertainment.",
+      "You can travel using your student id provided by LU initially. It might not work sometimes. If such an issue continues then you can buy a pass from downtown. Make sure to understand how it works.",
   },
   {
     id: "2",
-    question: "What are the payment methods?",
-    answer: "We accept cash, credit cards, and bank transfers for payment.",
+    question: "What are the best options for dinner?",
+    answer: "Instant food packets and if you can cook take the basic things with you including utensils. Otherwise, it can be costly to eat there.My suggestion - divide items amongst friends (cooker, rice, spices and so on) so weight is distributed and you can have a good meal.",
   },
   {
     id: "3",
-    question: "Can I request an extra bed?",
+    question: "How LU providing us internship there? Means which kind of assessment we have to do there? Are they going to give us a choice to select our field for internship!? ",
     answer:
-      "Yes, extra beds are available upon request, subject to availability.",
+      "For internship you have to do Individual project, you can do in any domain also you need to submit report as well as presentation for individual project.",
   },
   {
     id: "4",
-    question: "Is breakfast included?",
-    answer: "Yes, breakfast is included with your stay at no extra cost.",
+    question: "How's the facilities of washing machine?",
+    answer: "It is good. You should wash almost 2 weeks clothes in 1 go since it will cost you around $3.5 per wash, $1.75 for washing and $1.75 dryer. There is a dryer too for drying your clothes. (You can use it if your clothes don't dry directly since there isn't any area for hanging your clothes).Carry a string for that if you want.",
+  },
+  {
+    id: "5",
+    question: "When they will take us to the Wonderland, which one will we go to - amusement or waterpark?",
+    answer: "Both will be accessible. You can cover as many rides as you wish, you need to buy wonderland tickets which is around $45. Inside, there is no further charges for almost all the rides except 2-3 rides. I recommend using app of wonderland in which after signing up it provides waiting time for all rides, so it will save up your time. Also, while buying the ticket include drink refill coupon which will be more beneficial, there are also free water facility.",
   },
   // Add more questions as needed
 ];
