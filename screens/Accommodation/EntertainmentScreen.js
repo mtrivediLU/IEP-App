@@ -8,6 +8,7 @@ import {
   FlatList,
   Dimensions,
   Modal,
+  Animated, // Import Animated for transitions
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -26,6 +27,9 @@ const EntertainmentScreen = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0); // Index for main slider
   const [isModalVisible, setIsModalVisible] = useState(false); // For image zoom functionality
   const [selectedImageIndex, setSelectedImageIndex] = useState(0); // Index for modal slider
+
+  // Animated values for transitions
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   // Function to handle scrolling and set the current index on main screen
   const handleScroll = (event) => {
@@ -72,8 +76,17 @@ const EntertainmentScreen = ({ navigation }) => {
     setSelectedImageIndex(newIndex);
   };
 
+  // Trigger fade-in animation when screen loads
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000, // Duration of the fade-in effect
+      useNativeDriver: true,
+    }).start();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
       {/* Header with back button and title */}
       <View style={styles.headerContainer}>
         <TouchableOpacity
@@ -176,7 +189,7 @@ const EntertainmentScreen = ({ navigation }) => {
           </Text>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

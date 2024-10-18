@@ -6,11 +6,12 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  SafeAreaView, // Import SafeAreaView
+  SafeAreaView,
+  Animated, // Import Animated for animations
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient for gradient backgrounds
 
 const data = [
   {
@@ -55,23 +56,52 @@ const data = [
     screen: "KitchenServicesScreen",
     imageUrl: require("../assets/kitchen.jpg"),
   },
-  // Additional items
 ];
 
 const AccommodationScreen = () => {
   const navigation = useNavigation();
+  const scaleValue = new Animated.Value(1); // Animation state
+
+  const onPressIn = () => {
+    Animated.spring(scaleValue, {
+      toValue: 0.95,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const onPressOut = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1,
+      friction: 5,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      style={styles.card}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      activeOpacity={0.9}
       onPress={() => navigation.navigate(item.screen)} // Ensure screen name is correct
     >
-      <Image source={item.imageUrl} style={styles.image} />
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.description}>{item.description}</Text>
-      </View>
-      <Ionicons name="arrow-forward-circle-outline" size={30} color="#007AFF" />
+      <Animated.View style={[styles.card, { transform: [{ scale: scaleValue }] }]}>
+        <LinearGradient
+          colors={['#f9f9f9', '#f1f1f1']}
+          style={styles.gradientBackground}
+        >
+          <Image source={item.imageUrl} style={styles.image} />
+          <View style={styles.textContainer}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+          </View>
+          <Ionicons
+            name="arrow-forward-circle-outline"
+            size={30}
+            color="#fff"
+            style={styles.iconButton}
+          />
+        </LinearGradient>
+      </Animated.View>
     </TouchableOpacity>
   );
 
@@ -100,14 +130,18 @@ const AccommodationScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: "#fff",
+    backgroundColor: "#f4f5f7", // Light background for better contrast
+    paddingHorizontal: 16,
+    paddingBottom: 80,
   },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     marginBottom: 20,
+    paddingVertical: 10,
+    borderBottomColor: "#d4d4d4",
+    borderBottomWidth: 1,
   },
   header: {
     fontSize: 28,
@@ -117,23 +151,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   card: {
+    marginBottom: 16,
+    borderRadius: 16, // Increased rounding for modern feel
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+  gradientBackground: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F8F9FA",
     padding: 15,
-    borderRadius: 12,
-    marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 5,
-    elevation: 2,
+    borderRadius: 16,
   },
   image: {
     width: 80,
     height: 80,
-    borderRadius: 40,
+    borderRadius: 12, // Softer corners for images
     marginRight: 15,
+    borderWidth: 1,
+    borderColor: "#e1e4e8",
   },
   textContainer: {
     flex: 1,
@@ -147,6 +185,12 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: "#666",
+  },
+  iconButton: {
+    backgroundColor: "#007AFF", // Blue button background for arrow icon
+    padding: 10,
+    borderRadius: 50,
+    overflow: "hidden",
   },
 });
 
