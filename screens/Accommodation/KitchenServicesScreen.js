@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,21 +8,33 @@ import {
   FlatList,
   Dimensions,
   ScrollView,
+  Animated, // For adding transition effects
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const images = [
   require("../../assets/Accommodation/k1.jpg"),
   require("../../assets/Accommodation/k2.jpg"),
-  require("../../assets/Accommodation/k3.jpg"), // Add your images here
-  require("../../assets/Accommodation/k4.jpg"), // Add your images here
+  require("../../assets/Accommodation/k3.jpg"),
+  require("../../assets/Accommodation/k4.jpg"),
 ];
 
 const KitchenServicesScreen = ({ navigation }) => {
   const flatListRef = useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Fade-in animation for screen transition
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   // Function to handle scrolling and set the current index
   const handleScroll = (event) => {
@@ -31,7 +43,7 @@ const KitchenServicesScreen = ({ navigation }) => {
     setCurrentIndex(newIndex);
   };
 
-  // Function to handle next image
+  // Function to auto-slide images every 3 seconds
   const handleNextImage = () => {
     let nextIndex = currentIndex + 1;
     if (nextIndex >= images.length) {
@@ -41,8 +53,7 @@ const KitchenServicesScreen = ({ navigation }) => {
     setCurrentIndex(nextIndex);
   };
 
-  // Auto slide every 3 seconds
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       handleNextImage();
     }, 3000);
@@ -50,8 +61,8 @@ const KitchenServicesScreen = ({ navigation }) => {
   }, [currentIndex]);
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
         {/* Header with back button and title */}
         <View style={styles.headerContainer}>
           <TouchableOpacity
@@ -111,8 +122,8 @@ const KitchenServicesScreen = ({ navigation }) => {
             - Fire Extinguishers
           </Text>
         </View>
-      </ScrollView>
-    </View>
+      </Animated.View>
+    </ScrollView>
   );
 };
 
@@ -122,6 +133,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   scrollViewContainer: {
+    flexGrow: 1,
     paddingBottom: 100, // To avoid text overlapping with bottom navigation
   },
   headerContainer: {

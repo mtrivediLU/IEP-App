@@ -8,6 +8,8 @@ import {
   FlatList,
   Dimensions,
   Modal,
+  ScrollView, // Added ScrollView for better handling of content on smaller devices
+  Animated, // Added Animated for transitions
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -16,10 +18,10 @@ const { width, height } = Dimensions.get("window");
 const images = [
   require("../../assets/Accommodation/st1.jpg"),
   require("../../assets/Accommodation/st2.jpg"),
-  require("../../assets/Accommodation/st3.jpg"), // Add your images here
-  require("../../assets/Accommodation/st4.jpg"), // Add your images here
-  require("../../assets/Accommodation/st5.jpg"), // Add your images here
-  require("../../assets/Accommodation/st6.jpg"), // Add your images here
+  require("../../assets/Accommodation/st3.jpg"),
+  require("../../assets/Accommodation/st4.jpg"),
+  require("../../assets/Accommodation/st5.jpg"),
+  require("../../assets/Accommodation/st6.jpg"),
 ];
 
 const StudyRoomScreen = ({ navigation }) => {
@@ -28,6 +30,18 @@ const StudyRoomScreen = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Animated value for fade-in transition
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Fade-in effect when screen loads
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   // Function to handle scrolling and set the current index
   const handleScroll = (event) => {
@@ -72,105 +86,113 @@ const StudyRoomScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Header with back button and title */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={28} color="#fff" />
-        </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        {/* Header with back button and title */}
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={28} color="#fff" />
+          </TouchableOpacity>
 
-        {/* Title */}
-        <Text style={styles.headerTitle}>Study Room</Text>
+          {/* Title */}
+          <Text style={styles.headerTitle}>Study Room</Text>
 
-        <View style={{ width: 28 }} />
-      </View>
+          <View style={{ width: 28 }} />
+        </View>
 
-      {/* Swipeable Images */}
-      <View style={styles.imageSliderContainer}>
-        <FlatList
-          ref={flatListRef}
-          data={images}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity onPress={() => handleImagePress(index)}>
-              <Image source={item} style={styles.image} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(_, index) => index.toString()}
-          contentContainerStyle={{ alignItems: "center" }}
-        />
-        {/* Image Count */}
-        <Text style={styles.imageCountText}>
-          {currentIndex + 1} / {images.length}
-        </Text>
-        <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
-      </View>
+        {/* Swipeable Images */}
+        <View style={styles.imageSliderContainer}>
+          <FlatList
+            ref={flatListRef}
+            data={images}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity onPress={() => handleImagePress(index)}>
+                <Image source={item} style={styles.image} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={{ alignItems: "center" }}
+          />
+          {/* Image Count */}
+          <Text style={styles.imageCountText}>
+            {currentIndex + 1} / {images.length}
+          </Text>
+          <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
+        </View>
 
-      {/* Modal for zoomed images */}
-      {isModalVisible && (
-        <Modal visible={isModalVisible} transparent={true}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity
-              onPress={handleCloseModal}
-              style={styles.modalBackButton}
-            >
-              <Ionicons name="close" size={30} color="#fff" />
-            </TouchableOpacity>
+        {/* Modal for zoomed images */}
+        {isModalVisible && (
+          <Modal visible={isModalVisible} transparent={true}>
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                onPress={handleCloseModal}
+                style={styles.modalBackButton}
+              >
+                <Ionicons name="close" size={30} color="#fff" />
+              </TouchableOpacity>
 
-            <FlatList
-              ref={modalFlatListRef}
-              data={images}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onScroll={handleModalScroll}
-              renderItem={({ item }) => (
-                <Image source={item} style={styles.fullScreenImage} />
-              )}
-              keyExtractor={(_, index) => index.toString()}
-              initialScrollIndex={selectedImageIndex}
-              getItemLayout={(data, index) => ({
-                length: width,
-                offset: width * index,
-                index,
-              })}
-            />
+              <FlatList
+                ref={modalFlatListRef}
+                data={images}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleModalScroll}
+                renderItem={({ item }) => (
+                  <Image source={item} style={styles.fullScreenImage} />
+                )}
+                keyExtractor={(_, index) => index.toString()}
+                initialScrollIndex={selectedImageIndex}
+                getItemLayout={(data, index) => ({
+                  length: width,
+                  offset: width * index,
+                  index,
+                })}
+              />
+              {/* Image count in modal */}
+              <Text style={styles.modalImageCountText}>
+                {selectedImageIndex + 1} / {images.length}
+              </Text>
+            </View>
+          </Modal>
+        )}
 
-            {/* Image count in modal */}
-            <Text style={styles.modalImageCountText}>
-              {selectedImageIndex + 1} / {images.length}
-            </Text>
-          </View>
-        </Modal>
-      )}
+        {/* Details Section */}
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Study Room Facility</Text>
 
-      {/* Details Section */}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Study Room Facility</Text>
+          <Text style={styles.description}>
+            The study room provides a quiet and comfortable space for all
+            residents to focus on their academic work. It is equipped with
+            individual desks, group work areas, and high-speed internet to meet
+            all your study needs.
+          </Text>
 
-        <Text style={styles.description}>
-          The study room provides a quiet and comfortable space for all residents to focus on their academic work. It is equipped with individual desks, group work areas, and high-speed internet to meet all your study needs.
-        </Text>
-
-        <Text style={styles.description}>
-          • Individual desks for personal study sessions.{"\n"}
-          • Group work areas for collaborative tasks.{"\n"}
-          • High-speed internet access to stay connected.{"\n"}
-          • Air conditioning and heating for comfort throughout the year.{"\n"}
-          • Quiet, distraction-free environment.
-        </Text>
-      </View>
-    </View>
+          <Text style={styles.description}>
+            • Individual desks for personal study sessions.{"\n"}
+            • Group work areas for collaborative tasks.{"\n"}
+            • High-speed internet access to stay connected.{"\n"}
+            • Air conditioning and heating for comfort throughout the
+            year.{"\n"}• Quiet, distraction-free environment.
+          </Text>
+        </View>
+      </Animated.View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 60, // Added padding to prevent bottom navigation overlap
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",

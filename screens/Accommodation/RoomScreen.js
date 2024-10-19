@@ -9,6 +9,7 @@ import {
   Dimensions,
   Modal,
   ScrollView,
+  Animated, // Import Animated for transitions
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -28,6 +29,18 @@ const RoomsScreen = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Animated value for fade-in transition
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Fade-in effect when screen loads
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   const handleScroll = (event) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
@@ -69,7 +82,7 @@ const RoomsScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
         {/* Header with back button and title */}
         <View style={styles.headerContainer}>
           <TouchableOpacity
@@ -181,7 +194,7 @@ const RoomsScreen = ({ navigation }) => {
             </Text>
           </View>
         </View>
-      </View>
+      </Animated.View>
     </ScrollView>
   );
 };
@@ -189,6 +202,7 @@ const RoomsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   scrollContainer: {
     flexGrow: 1,
+    paddingBottom: 60, // Add padding to prevent bottom overlap
   },
   container: {
     flex: 1,
@@ -265,7 +279,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#333",
     marginBottom: 10,
-    lineHeight: 24, // Increase line height for better readability
+    lineHeight: 24,
   },
   modalContainer: {
     flex: 1,

@@ -9,6 +9,7 @@ import {
   Dimensions,
   Modal,
   Animated, // Import Animated for transitions
+  ScrollView, // Import ScrollView to allow scrolling on smaller devices
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -86,114 +87,121 @@ const EntertainmentScreen = ({ navigation }) => {
   }, []);
 
   return (
-    <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
-      {/* Header with back button and title */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={28} color="#fff" />
-        </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        {/* Header with back button and title */}
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={28} color="#fff" />
+          </TouchableOpacity>
 
-        {/* Title */}
-        <Text style={styles.headerTitle}>Entertainment Facilities</Text>
+          {/* Title */}
+          <Text style={styles.headerTitle}>Entertainment Facilities</Text>
 
-        {/* Placeholder for alignment */}
-        <View style={{ width: 28 }} />
-      </View>
+          {/* Placeholder for alignment */}
+          <View style={{ width: 28 }} />
+        </View>
 
-      {/* Swipeable Images with touchable images */}
-      <View style={styles.imageSliderContainer}>
-        <FlatList
-          ref={flatListRef}
-          data={images}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity onPress={() => handleImagePress(index)}>
-              <Image source={item} style={styles.image} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(_, index) => index.toString()}
-          contentContainerStyle={{ alignItems: "center" }}
-        />
-        {/* Image Count on Main Screen */}
-        <Text style={styles.imageCountText}>
-          {currentIndex + 1} / {images.length}
-        </Text>
-        {/* Tap to Zoom note */}
-        <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
-      </View>
+        {/* Swipeable Images with touchable images */}
+        <View style={styles.imageSliderContainer}>
+          <FlatList
+            ref={flatListRef}
+            data={images}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity onPress={() => handleImagePress(index)}>
+                <Image source={item} style={styles.image} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={{ alignItems: "center" }}
+          />
+          {/* Image Count on Main Screen */}
+          <Text style={styles.imageCountText}>
+            {currentIndex + 1} / {images.length}
+          </Text>
+          {/* Tap to Zoom note */}
+          <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
+        </View>
 
-      {/* Modal to display the zoomed images with slider */}
-      {isModalVisible && (
-        <Modal visible={isModalVisible} transparent={true}>
-          <View style={styles.modalContainer}>
-            {/* Back button in zoomed image modal */}
-            <TouchableOpacity
-              onPress={handleCloseModal}
-              style={styles.modalBackButton}
-            >
-              <Ionicons name="close" size={30} color="#fff" />
-            </TouchableOpacity>
+        {/* Modal to display the zoomed images with slider */}
+        {isModalVisible && (
+          <Modal visible={isModalVisible} transparent={true}>
+            <View style={styles.modalContainer}>
+              {/* Back button in zoomed image modal */}
+              <TouchableOpacity
+                onPress={handleCloseModal}
+                style={styles.modalBackButton}
+              >
+                <Ionicons name="close" size={30} color="#fff" />
+              </TouchableOpacity>
 
-            {/* Full-screen images with slider */}
-            <FlatList
-              ref={modalFlatListRef}
-              data={images}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onScroll={handleModalScroll}
-              renderItem={({ item }) => (
-                <Image source={item} style={styles.fullScreenImage} />
-              )}
-              keyExtractor={(_, index) => index.toString()}
-              initialScrollIndex={selectedImageIndex}
-              getItemLayout={(data, index) => ({
-                length: width,
-                offset: width * index,
-                index,
-              })}
-            />
+              {/* Full-screen images with slider */}
+              <FlatList
+                ref={modalFlatListRef}
+                data={images}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleModalScroll}
+                renderItem={({ item }) => (
+                  <Image source={item} style={styles.fullScreenImage} />
+                )}
+                keyExtractor={(_, index) => index.toString()}
+                initialScrollIndex={selectedImageIndex}
+                getItemLayout={(data, index) => ({
+                  length: width,
+                  offset: width * index,
+                  index,
+                })}
+              />
 
-            {/* Image count displayed below the image */}
-            <Text style={styles.modalImageCountText}>
-              {selectedImageIndex + 1} / {images.length}
+              {/* Image count displayed below the image */}
+              <Text style={styles.modalImageCountText}>
+                {selectedImageIndex + 1} / {images.length}
+              </Text>
+            </View>
+          </Modal>
+        )}
+
+        {/* Details Section with Points */}
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Facilities Available</Text>
+          <View style={styles.listContainer}>
+            <Text style={styles.listItem}>
+              - Access to on-campus fitness centres, sports facilities, and recreational activities, including gyms and sports fields.
+            </Text>
+            <Text style={styles.listItem}>
+              - Designated social spaces within the residences.
+            </Text>
+            <Text style={styles.listItem}>
+              - Various types of game equipment will be provided by the porter.
+            </Text>
+            <Text style={styles.listItem}>
+              - Access to a theatre room, where you can entertain yourself on a large screen.
+            </Text>
+            <Text style={styles.listItem}>
+              - Access to indoor games like pool and table tennis.
             </Text>
           </View>
-        </Modal>
-      )}
-
-      {/* Details Section with Points */}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Facilities Available</Text>
-        <View style={styles.listContainer}>
-          <Text style={styles.listItem}>
-            - Access to on-campus fitness centres, sports facilities, and recreational activities, including gyms and sports fields.
-          </Text>
-          <Text style={styles.listItem}>
-            - Designated social spaces within the residences.
-          </Text>
-          <Text style={styles.listItem}>
-            - Various types of game equipment will be provided by the porter.
-          </Text>
-          <Text style={styles.listItem}>
-            - Access to a theatre room, where you can entertain yourself on a large screen.
-          </Text>
-          <Text style={styles.listItem}>
-            - Access to indoor games like pool and table tennis.
-          </Text>
         </View>
-      </View>
-    </Animated.View>
+      </Animated.View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: "#fff",
+    paddingBottom: 60, // Add padding for bottom space to prevent overlap
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -240,7 +248,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   detailsContainer: {
-    flex: 1,
     paddingHorizontal: 20,
     paddingVertical: 20,
     backgroundColor: "#f5f5f5",

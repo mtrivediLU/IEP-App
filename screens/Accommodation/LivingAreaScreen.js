@@ -8,6 +8,8 @@ import {
   FlatList,
   Dimensions,
   Modal,
+  ScrollView,
+  Animated, // Import Animated for transitions
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -24,6 +26,18 @@ const LivingAreaScreen = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
+  // Animated value for fade-in transition
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Fade-in effect when screen loads
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   // Function to handle scrolling and set the current index
   const handleScroll = (event) => {
@@ -69,108 +83,112 @@ const LivingAreaScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Header with back button and title */}
-      <View style={styles.headerContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-        >
-          <Ionicons name="arrow-back" size={28} color="#fff" />
-        </TouchableOpacity>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
+        {/* Header with back button and title */}
+        <View style={styles.headerContainer}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Ionicons name="arrow-back" size={28} color="#fff" />
+          </TouchableOpacity>
 
-        {/* Title */}
-        <Text style={styles.headerTitle}>Living Area</Text>
+          {/* Title */}
+          <Text style={styles.headerTitle}>Living Area</Text>
 
-        <View style={{ width: 28 }} />
-      </View>
+          <View style={{ width: 28 }} />
+        </View>
 
-      {/* Swipeable Images */}
-      <View style={styles.imageSliderContainer}>
-        <FlatList
-          ref={flatListRef}
-          data={images}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-          onScroll={handleScroll}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity onPress={() => handleImagePress(index)}>
-              <Image source={item} style={styles.image} />
-            </TouchableOpacity>
-          )}
-          keyExtractor={(_, index) => index.toString()}
-          contentContainerStyle={{ alignItems: "center" }}
-        />
+        {/* Swipeable Images */}
+        <View style={styles.imageSliderContainer}>
+          <FlatList
+            ref={flatListRef}
+            data={images}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={handleScroll}
+            renderItem={({ item, index }) => (
+              <TouchableOpacity onPress={() => handleImagePress(index)}>
+                <Image source={item} style={styles.image} />
+              </TouchableOpacity>
+            )}
+            keyExtractor={(_, index) => index.toString()}
+            contentContainerStyle={{ alignItems: "center" }}
+          />
 
-        {/* Image Count */}
-        <Text style={styles.imageCountText}>
-          {currentIndex + 1} / {images.length}
-        </Text>
-        <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
-      </View>
+          {/* Image Count */}
+          <Text style={styles.imageCountText}>
+            {currentIndex + 1} / {images.length}
+          </Text>
+          <Text style={styles.tapToZoomText}>Tap on the image to zoom</Text>
+        </View>
 
-      {/* Modal for zoomed images */}
-      {isModalVisible && (
-        <Modal visible={isModalVisible} transparent={true}>
-          <View style={styles.modalContainer}>
-            <TouchableOpacity
-              onPress={handleCloseModal}
-              style={styles.modalBackButton}
-            >
-              <Ionicons name="close" size={30} color="#fff" />
-            </TouchableOpacity>
+        {/* Modal for zoomed images */}
+        {isModalVisible && (
+          <Modal visible={isModalVisible} transparent={true}>
+            <View style={styles.modalContainer}>
+              <TouchableOpacity
+                onPress={handleCloseModal}
+                style={styles.modalBackButton}
+              >
+                <Ionicons name="close" size={30} color="#fff" />
+              </TouchableOpacity>
 
-            <FlatList
-              ref={modalFlatListRef}
-              data={images}
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onScroll={handleModalScroll}
-              renderItem={({ item }) => (
-                <Image source={item} style={styles.fullScreenImage} />
-              )}
-              keyExtractor={(_, index) => index.toString()}
-              initialScrollIndex={selectedImageIndex}
-              getItemLayout={(data, index) => ({
-                length: width,
-                offset: width * index,
-                index,
-              })}
-            />
+              <FlatList
+                ref={modalFlatListRef}
+                data={images}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={handleModalScroll}
+                renderItem={({ item }) => (
+                  <Image source={item} style={styles.fullScreenImage} />
+                )}
+                keyExtractor={(_, index) => index.toString()}
+                initialScrollIndex={selectedImageIndex}
+                getItemLayout={(data, index) => ({
+                  length: width,
+                  offset: width * index,
+                  index,
+                })}
+              />
 
-            {/* Image Count in Modal */}
-            <Text style={styles.modalImageCountText}>
-              {selectedImageIndex + 1} / {images.length}
+              {/* Image Count in Modal */}
+              <Text style={styles.modalImageCountText}>
+                {selectedImageIndex + 1} / {images.length}
+              </Text>
+            </View>
+          </Modal>
+        )}
+
+        {/* Details Section */}
+        <View style={styles.detailsContainer}>
+          <Text style={styles.title}>Living Area</Text>
+          <View style={styles.listContainer}>
+            <Text style={styles.listItem}>• Spacious couches for seating.</Text>
+            <Text style={styles.listItem}>
+              • Flat-screen TV for watching shows and movies.
+            </Text>
+            <Text style={styles.listItem}>
+              • Air conditioning unit to maintain a pleasant indoor climate.
+            </Text>
+            <Text style={styles.listItem}>
+              • Designated spaces for social gatherings and group activities.
             </Text>
           </View>
-        </Modal>
-      )}
-
-      {/* Details Section */}
-      <View style={styles.detailsContainer}>
-        <Text style={styles.title}>Living Area</Text>
-        <View style={styles.listContainer}>
-          <Text style={styles.listItem}>
-            • Spacious couches for seating.
-          </Text>
-          <Text style={styles.listItem}>
-            • Flat-screen TV for watching shows and movies.
-          </Text>
-          <Text style={styles.listItem}>
-            • Air conditioning unit to maintain a pleasant indoor climate.
-          </Text>
-          <Text style={styles.listItem}>
-            • Designated spaces for social gatherings and group activities.
-          </Text>
         </View>
-      </View>
-    </View>
+      </Animated.View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 60, // Add padding to prevent bottom overlap
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
