@@ -1,5 +1,5 @@
 import React from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -14,7 +14,7 @@ import Accommodation from "./screens/AccomodationScreen";
 import ThingsToBring from "./screens/ThingsToBring";
 import PlacesToVisit from "./screens/PlacesToVisit";
 import FAQ from "./screens/FAQ";
-import DiningService from "./screens/DiningService";
+import cafeandrestro from "./screens/cafeandrestro";
 import AlumniContact from "./screens/AlumniContact";
 
 // things to bring
@@ -57,7 +57,7 @@ const HomeStack = () => (
     <Stack.Screen name="ThingsToBring" component={ThingsToBring} />
     <Stack.Screen name="PlacesToVisit" component={PlacesToVisit} />
     <Stack.Screen name="FAQ" component={FAQ} />
-    <Stack.Screen name="DiningService" component={DiningService} />
+    <Stack.Screen name="cafeandrestro" component={cafeandrestro} />
     <Stack.Screen name="AlumniContact" component={AlumniContact} />
 
     {/* Accommodation screens */}
@@ -94,7 +94,6 @@ const HomeStack = () => (
     <Stack.Screen name="TrailsNearSudbury" component={TrailsNearSudbury} />
   </Stack.Navigator>
 );
-
 // Create Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
@@ -104,40 +103,59 @@ export default function App() {
       <StatusBar barStyle="dark-content" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ color, size }) => {
+          tabBarIcon: ({ color, size, focused }) => {
             let iconName;
 
             if (route.name === "Home") {
-              iconName = "home-outline";
+              iconName = focused ? "home" : "home-outline";
             } else if (route.name === "Chat") {
-              iconName = "chatbubble-outline";
+              iconName = focused ? "chatbubble" : "chatbubble-outline";
             } else if (route.name === "About Us") {
-              iconName = "information-circle-outline";
+              iconName = focused ? "information-circle" : "information-circle-outline";
             }
 
-            return <Ionicons name={iconName} size={30} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: "#0052CC",
-          tabBarInactiveTintColor: "gray",
+          tabBarActiveTintColor: "#4CAF50", // Green color for active tab
+          tabBarInactiveTintColor: "#6c757d", // Soft gray for inactive tab
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: "bold",
             marginBottom: 5,
           },
           tabBarStyle: {
-            backgroundColor: "#fff",
+            backgroundColor: "#f8f9fa", // Light background for tab bar
             position: "absolute",
             bottom: 20,
             left: 20,
             right: 20,
             borderRadius: 30,
-            height: 60,
+            height: 70,
             shadowColor: "#000",
             shadowOpacity: 0.1,
             shadowOffset: { width: 0, height: 5 },
             elevation: 5,
           },
-          headerShown: false, // Disable header for tabs
+          tabBarItemStyle: {
+            marginVertical: 5,
+          },
+          tabBarIconStyle: {
+            size: 30,
+          },
+          tabBarBackground: () => (
+            <View
+              style={{
+                backgroundColor: "#f8f9fa", // Same light background as the tab bar
+                borderRadius: 30,
+                height: "100%",
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 6 },
+                shadowOpacity: 0.15,
+                elevation: 10,
+              }}
+            />
+          ),
+          headerShown: false,
         })}
       >
         <Tab.Screen

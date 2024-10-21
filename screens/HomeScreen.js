@@ -9,6 +9,7 @@ import {
   StatusBar,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { LinearGradient } from "expo-linear-gradient"; // Import LinearGradient
 
 const HomeScreen = ({ navigation }) => {
   const cardData = [
@@ -43,10 +44,10 @@ const HomeScreen = ({ navigation }) => {
       navigateTo: "FAQ",
     },
     {
-      title: "Dining Service",
+      title: "Cafes & Restaurants",
       image: require("../assets/places.png"),
       details: "Dining service details and timings.",
-      navigateTo: "DiningService",
+      navigateTo: "cafeandrestro",
     },
     {
       title: "Alumni Contact",
@@ -56,24 +57,20 @@ const HomeScreen = ({ navigation }) => {
     },
   ];
 
-  const cardColors = [
-    "#ffa69e",
-    "#ffebb2",
-    "#e29578",
-    "#c2ddce",
-    "#88d0ff",
-    "#f2cc8f",
-    "#a8b5e2",
+  const cardGradients = [
+    ["#ff9a9e", "#fad0c4"],
+    ["#ffecd2", "#fcb69f"],
+    ["#a1c4fd", "#c2e9fb"],
+    ["#fbc2eb", "#a6c1ee"],
+    ["#fad0c4", "#ffd1ff"],
+    ["#89f7fe", "#66a6ff"],
+    ["#f3e7e9", "#e3eeff"],
   ];
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-      {/* Adding StatusBar here to control the appearance */}
-      <StatusBar
-        barStyle="dark-content"
-        backgroundColor="#fff"
-        translucent={false}
-      />
+      {/* StatusBar to control the appearance */}
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" translucent={false} />
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title2}>Welcome Students</Text>
@@ -82,27 +79,33 @@ const HomeScreen = ({ navigation }) => {
         {cardData.map((card, index) => (
           <TouchableOpacity
             key={index}
-            style={[
-              styles.card,
-              { backgroundColor: cardColors[index % cardColors.length] },
-            ]}
+            style={styles.cardContainer}
+            activeOpacity={0.85}
             onPress={() => navigation.navigate(card.navigateTo)}
           >
-            <View
-              style={[
-                styles.cardContent,
-                index % 2 === 0 ? styles.rowLeft : styles.rowRight,
-              ]}
+            {/* Apply Linear Gradient Background */}
+            <LinearGradient
+              colors={cardGradients[index % cardGradients.length]}
+              style={styles.card}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
             >
-              <Image
-                source={card.image}
-                style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]}
-              />
-              <View style={styles.textContainer}>
-                <Text style={styles.cardTitle}>{card.title}</Text>
-                <Text style={styles.cardLink}>Show More →</Text>
+              <View
+                style={[
+                  styles.cardContent,
+                  index % 2 === 0 ? styles.rowLeft : styles.rowRight,
+                ]}
+              >
+                <Image
+                  source={card.image}
+                  style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]}
+                />
+                <View style={styles.textContainer}>
+                  <Text style={styles.cardTitle}>{card.title}</Text>
+                  <Text style={styles.cardLink}>Show More →</Text>
+                </View>
               </View>
-            </View>
+            </LinearGradient>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -113,32 +116,40 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#f5f5f7", // Light background color for modern look
   },
-
   scrollContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 80, // Increased padding to prevent overlap with bottom navigation
+    paddingBottom: 80, // Prevents overlap with bottom navigation
   },
   title2: {
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: "600",
     marginTop: 16,
+    color: "#666",
+    textAlign: "center", // Centered for a modern approach
   },
   title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 8,
+    fontSize: 28,
+    fontWeight: "700",
+    marginBottom: 16,
+    textAlign: "center",
+    color: "#333",
+  },
+  cardContainer: {
+    borderRadius: 16,
+    overflow: "hidden", // Ensures corners are rounded
+    marginBottom: 16,
   },
   card: {
-    borderRadius: 12,
+    borderRadius: 16,
     height: 150,
-    marginBottom: 16,
+    padding: 10,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 6, // Subtle shadow for depth
   },
   cardContent: {
     flexDirection: "row",
@@ -152,12 +163,13 @@ const styles = StyleSheet.create({
     flexDirection: "row-reverse",
   },
   icon: {
-    width: 150,
-    height: "100%",
+    width: 120,
+    height: 120,
+    borderRadius: 12,
     resizeMode: "cover",
   },
   iconLeft: {
-    marginRight: 16,
+    marginRight: 12,
   },
   textContainer: {
     flex: 1,
@@ -165,12 +177,18 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 4,
+    fontWeight: "700",
+    color: "#fff", // Set to white for contrast
+    textShadowColor: "#000", // Add shadow for better visibility
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
   cardLink: {
     fontSize: 14,
-    color: "#888",
+    color: "#fff", // Ensure this is also white
+    textShadowColor: "#000", // Add shadow for better visibility
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });
 
