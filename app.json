@@ -17,10 +17,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.achyut_dobaria.Alumni"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "30773262-810a-48d1-9151-994c26f6db69"
+      }
     }
   }
 }

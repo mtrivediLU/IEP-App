@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons'; // Ionicons for icons
+import { Ionicons } from '@expo/vector-icons'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
 const StationaryDetail = () => {
   const navigation = useNavigation();
 
-  // Initialize state with default values, unchecked items
   const [stationaryItems, setStationaryItems] = useState([
     { id: 1, name: 'Notebook x 2', selected: false },
     { id: 2, name: 'A4 size plain white paper', selected: false },
@@ -17,7 +16,6 @@ const StationaryDetail = () => {
     { id: 5, name: 'Backpack for college', selected: false },
   ]);
 
-  // Load the saved checkbox states from AsyncStorage when the component mounts
   useEffect(() => {
     const loadSelections = async () => {
       try {
@@ -32,14 +30,12 @@ const StationaryDetail = () => {
     loadSelections();
   }, []);
 
-  // Function to handle checkbox click (can select and deselect)
   const toggleCheckbox = async (id) => {
     const updatedItems = stationaryItems.map((item) =>
-      item.id === id ? { ...item, selected: !item.selected } : item // Toggle selection state
+      item.id === id ? { ...item, selected: !item.selected } : item
     );
     setStationaryItems(updatedItems);
 
-    // Save the updated state to AsyncStorage
     try {
       await AsyncStorage.setItem('selectedStationaryItems', JSON.stringify(updatedItems));
     } catch (error) {
@@ -48,14 +44,14 @@ const StationaryDetail = () => {
   };
 
   const renderItem = ({ item }) => {
-    const iconSize = 28; // Bigger icon size for premium look
-    let iconName = 'ellipse-outline'; // Default icon for unselected
-    let iconColor = '#ccc'; // Gray color for unselected
-    let backgroundStyle = {}; // Default background for unselected
+    const iconSize = 28; 
+    let iconName = 'ellipse-outline'; 
+    let iconColor = '#ccc'; 
+    let backgroundStyle = {}; 
 
     if (item.selected) {
       iconName = 'checkmark-circle';
-      iconColor = '#4CAF50'; // Green color for selected
+      iconColor = '#4CAF50'; 
       backgroundStyle = styles.selectedCheckboxBackground;
     }
 
@@ -81,7 +77,7 @@ const StationaryDetail = () => {
         </View>
       </View>
 
-      {/* Stationary Items List */}
+      {/* FlatList with padding for bottom navigation */}
       <FlatList
         data={stationaryItems}
         renderItem={renderItem}
@@ -102,24 +98,23 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     paddingBottom: 15,
-    // Enhanced shadow for iOS and Android
     shadowColor: '#000',
-    shadowOffset: { width: 4, height: 6 }, // Increase offset for more depth
-    shadowOpacity: 0.8, // Increase opacity for a darker shadow
-    shadowRadius: 10, // Increase blur for a more pronounced shadow
-    elevation: 20, // Increase elevation for a higher shadow effect
+    shadowOffset: { width: 4, height: 6 },
+    shadowOpacity: 0.8,
+    shadowRadius: 10,
+    elevation: 20,
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 80,
-    position: 'relative', // To position the back button absolutely
+    position: 'relative',
   },
   backButton: {
     position: 'absolute',
     left: 16,
-    top: 20, // Adjust if necessary based on your design
+    top: 20,
   },
   headerTitle: {
     fontSize: 20,
@@ -129,6 +124,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingBottom: 90, // Padding for bottom navigation
   },
   itemContainer: {
     flexDirection: 'row',
@@ -136,29 +132,29 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    borderRadius: 10, // Round corners for modern look
-    backgroundColor: '#f7f7f7', // Light background for each item
+    borderRadius: 10, 
+    backgroundColor: '#f7f7f7',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
-    elevation: 2, // Subtle shadow for item container
+    elevation: 2, 
   },
   checkboxContainer: {
     backgroundColor: '#fff',
     borderWidth: 1.5,
     borderColor: '#ddd',
-    borderRadius: 50, // Make it a circular checkbox
+    borderRadius: 50,
     padding: 2,
     marginRight: 12,
     shadowColor: '#000',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 3,
-    elevation: 3, // Subtle shadow on the checkbox itself
+    elevation: 3,
   },
   selectedCheckboxBackground: {
-    backgroundColor: '#e0f7f3', // Add light background when selected
+    backgroundColor: '#e0f7f3',
   },
   checkboxIcon: {
     alignSelf: 'center',

@@ -91,7 +91,7 @@ const ClothingDetail = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContainer}
-        style={{ paddingBottom: 100 }} // Add extra padding to avoid hiding the last checkbox
+        style={{ paddingBottom: 120 }} // Add extra padding to avoid hiding the last checkbox
       />
     </SafeAreaView>
   );
@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingBottom: 120, // Additional padding for bottom navigation bar
   },
   itemContainer: {
     flexDirection: 'row',

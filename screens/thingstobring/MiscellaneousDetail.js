@@ -19,7 +19,7 @@ const MiscellaneousDetail = () => {
     { id: 7, name: 'Umbrella / raincoat', selected: false },
     { id: 8, name: 'Utensils', selected: false },
     { id: 9, name: 'First Aid Kit', selected: false },
-    { id: 10, name: 'Medicine- with doctor prescription', selected: false },
+    { id: 10, name: 'Medicine - with doctor prescription', selected: false },
     { id: 11, name: 'Ideal for puja', selected: false },
   ]);
 
@@ -93,7 +93,7 @@ const MiscellaneousDetail = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.listContainer}
-        style={{ paddingBottom: 100 }} // Add extra padding to avoid hiding the last checkbox
+        style={{ paddingBottom: 120 }} // Add padding for bottom navigation bar
       />
     </SafeAreaView>
   );
@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 50,
     borderBottomRightRadius: 50,
     paddingBottom: 15,
-    // Enhanced shadow for iOS and Android
     shadowColor: '#000',
     shadowOffset: { width: 4, height: 6 }, // Increase offset for more depth
     shadowOpacity: 0.8, // Increase opacity for a darker shadow
@@ -136,6 +135,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingBottom: 120, // Additional padding for bottom navigation bar
   },
   itemContainer: {
     flexDirection: 'row',

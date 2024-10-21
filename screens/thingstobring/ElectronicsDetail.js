@@ -45,8 +45,8 @@ const ElectronicsDetail = () => {
 
   // Function to handle checkbox click (can select and deselect)
   const toggleCheckbox = async (id) => {
-    const updatedItems = electronicsItems.map(
-      (item) => (item.id === id ? { ...item, selected: !item.selected } : item) // Toggle selection state
+    const updatedItems = electronicsItems.map((item) =>
+      item.id === id ? { ...item, selected: !item.selected } : item
     );
     setElectronicsItems(updatedItems);
 
@@ -151,6 +151,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingBottom: 90, // Padding for bottom navigation
   },
   itemContainer: {
     flexDirection: "row",

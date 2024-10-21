@@ -131,6 +131,7 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     padding: 16,
+    paddingBottom: 90, // Padding for bottom navigation
   },
   itemContainer: {
     flexDirection: 'row',
