@@ -6,11 +6,10 @@ const { width } = Dimensions.get('window');
 
 // Replace with actual images for dining services
 const images = [
-  require('../assets/Placetovisit/s1.jpg'),
-  require('../assets/Placetovisit/s2.jpg'),
-  require('../assets/Placetovisit/s3.jpg'), 
-  require('../assets/Placetovisit/s1.jpg'), // Replace with actual images
-  require('../assets/Placetovisit/s2.jpg'), // Replace with actual images
+  require('../assets/cr-1.jpg'),
+  require('../assets/cr-2.jpg'),
+  require('../assets/cr-3.jpg'), 
+  require('../assets/cr-4.jpg'),
 ];
 
 const DiningServices = ({ navigation }) => {

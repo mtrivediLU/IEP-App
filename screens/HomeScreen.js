@@ -15,7 +15,7 @@ const HomeScreen = ({ navigation }) => {
   const cardData = [
     {
       title: "What is IEP (GTU)?",
-      image: require("../assets/nerw.png"),
+      image: require("../assets/IEP.png"),
       details: "Details about the IEP (GTU) program.",
       navigateTo: "IEPDetails",
     },
@@ -45,8 +45,8 @@ const HomeScreen = ({ navigation }) => {
     },
     {
       title: "Cafes & Restaurants",
-      image: require("../assets/places.png"),
-      details: "Dining service details and timings.",
+      image: require("../assets/cafe&restro.png"),
+      details: "Dining service details.",
       navigateTo: "cafeandrestro",
     },
     {
