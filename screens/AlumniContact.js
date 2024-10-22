@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Linking,
   TouchableWithoutFeedback,
+  Linking,
+  Animated,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,70 +18,74 @@ import { Ionicons } from "@expo/vector-icons";
 const alumniData = [
   {
     id: "1",
+    name: "Mihir Trivedi",
+    role: "Teaching Assistant at Laurentian",
+    details: "IEP 2016",
+    image: require("../assets/Contacts/Mihir.png"), // Replace with actual image path
+    email: "mihirtrivedi@gmail.com",
+    instagram: "https://www.instagram.com/_mihir_trivedi/",
+    linkedin: "https://www.linkedin.com/in/mihirtrivedigm/",
+  },
+  {
+    id: "2",
     name: "Divyesh Thakur",
     role: "Student (CSE)",
     details: "IEP 2024",
     image: require("../assets/Contacts/Divyesh.jpg"), // Replace with actual image path
-    phone: "+91 8980957241",
     email: "divyesh@example.com",
     instagram: "https://www.instagram.com/divyeshxthakur/", // Replace with actual Instagram URL
     linkedin: "https://www.linkedin.com/in/divyesh-thakur-82b75b220/", // Replace with actual LinkedIn URL
   },
   {
-    id: "2",
+    id: "3",
     name: "Achyut Dobaria",
-    role: "Student (CSE)",
+    role: "Student (IT)",
     details: "IEP 2024",
     image: require("../assets/Contacts/Achyut.jpg"), // Replace with actual image path
-    phone: "+91 9484673826",
     email: "achyutdobaria@gmail.com",
-    instagram:
-      "https://www.instagram.com/achyut_dobaria/profilecard/?igsh=YThsZ2lveXRwamFi", // Replace with actual Instagram URL
-    linkedin:
-      "https://www.linkedin.com/in/achyut-dobaria-3b0710201?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app ", // Replace with actual LinkedIn URL
+    instagram: "https://www.instagram.com/achyut_dobaria/",
+    linkedin: "https://www.linkedin.com/in/achyut-dobaria-3b0710201",
   },
   {
-    id: "3",
+    id: "4",
     name: "Vatsalya Dabhi",
     role: "Student (CSE)",
     details: "IEP 2024",
     image: require("../assets/Contacts/vatsalya.jpg"), // Replace with actual image path
-    phone: "+91 8758945141",
     email: "Vatsalyadabhi2020@gmail.com",
-    instagram:
-      "https://www.instagram.com/vtsly_ofc?igsh=bjh6eDg2eHk1cGM5&utm_source=qr", // Replace with actual Instagram URL
+    instagram: "https://www.instagram.com/vtsly_ofc/",
     linkedin: "https://www.linkedin.com/in/vatsalya-dabhi", // Replace with actual LinkedIn URL
-  },
-  {
-    id: "4",
-    name: "Mihir Trivedi",
-    role: "Teaching Assistant",
-    details: "IEP 2016",
-    image: require("../assets/Contacts/Mihir.png"), // Replace with actual image path
-    phone: "+91 8758945141",
-    email: "Vatsalyadabhi2003@gmail.com",
-    instagram: "https://www.instagram.com/_mihir_trivedi/", // Replace with actual Instagram URL
-    linkedin: "https://www.linkedin.com/in/mihirtrivedigm/", // Replace with actual LinkedIn URL
   },
 ];
 
 const AlumniContacts = ({ navigation }) => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const fadeAnim = useState(new Animated.Value(0))[0]; // Initial fade animation
 
   const openModal = (item) => {
     setSelectedContact(item);
     setModalVisible(true);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
   };
 
   const closeModal = () => {
-    setModalVisible(false);
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => setModalVisible(false));
     setSelectedContact(null);
   };
 
-  const handleLinkPress = (url) => {
-    Linking.openURL(url).catch((err) =>
-      console.error("Failed to open URL:", err)
+  // Function to open the email client
+  const handleEmailPress = (email) => {
+    Linking.openURL(`mailto:${email}`).catch((err) =>
+      console.error("Failed to open email client:", err)
     );
   };
 
@@ -92,7 +97,7 @@ const AlumniContacts = ({ navigation }) => {
         <Text style={styles.role}>{item.role}</Text>
         <Text style={styles.details}>{item.details}</Text>
       </View>
-      <Ionicons name="chevron-forward-outline" size={24} color="#fff" />
+      <Ionicons name="chevron-forward-outline" size={24} color="#333" />
     </TouchableOpacity>
   );
 
@@ -104,7 +109,7 @@ const AlumniContacts = ({ navigation }) => {
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={28} color="#000" />
+          <Ionicons name="arrow-back" size={28} color="#fff" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Alumni Contacts</Text>
       </View>
@@ -119,13 +124,15 @@ const AlumniContacts = ({ navigation }) => {
 
       {/* Modal for displaying contact details */}
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={closeModal}
       >
         <TouchableWithoutFeedback onPress={closeModal}>
-          <View style={styles.modalContainer}>
+          <Animated.View
+            style={[styles.modalContainer, { opacity: fadeAnim }]}
+          >
             <TouchableWithoutFeedback>
               <View style={styles.modalView}>
                 <TouchableOpacity
@@ -148,37 +155,39 @@ const AlumniContacts = ({ navigation }) => {
                     </Text>
 
                     <View style={styles.modalInfoContainer}>
-                      <Text style={styles.modalInfoText}>
-                        Phone: {selectedContact.phone}
-                      </Text>
-                      <Text style={styles.modalInfoText}>
-                        Email: {selectedContact.email}
-                      </Text>
+                      {/* Pressable email text */}
+                      <Pressable
+                        onPress={() => handleEmailPress(selectedContact.email)}
+                      >
+                        <Text style={styles.modalInfoText}>
+                          Email: {selectedContact.email}
+                        </Text>
+                      </Pressable>
                     </View>
 
                     <View style={styles.modalSocials}>
                       <Pressable
                         onPress={() =>
-                          handleLinkPress(selectedContact.instagram)
+                          Linking.openURL(selectedContact.instagram)
                         }
-                        style={styles.socialIconContainer}
+                        style={styles.socialButton}
                       >
                         <Ionicons
                           name="logo-instagram"
-                          size={40}
+                          size={28}
                           color="#E1306C"
                         />
                         <Text style={styles.socialText}>Instagram</Text>
                       </Pressable>
                       <Pressable
                         onPress={() =>
-                          handleLinkPress(selectedContact.linkedin)
+                          Linking.openURL(selectedContact.linkedin)
                         }
-                        style={styles.socialIconContainer}
+                        style={styles.socialButton}
                       >
                         <Ionicons
                           name="logo-linkedin"
-                          size={40}
+                          size={28}
                           color="#0e76a8"
                         />
                         <Text style={styles.socialText}>LinkedIn</Text>
@@ -188,7 +197,7 @@ const AlumniContacts = ({ navigation }) => {
                 )}
               </View>
             </TouchableWithoutFeedback>
-          </View>
+          </Animated.View>
         </TouchableWithoutFeedback>
       </Modal>
     </SafeAreaView>
@@ -198,47 +207,56 @@ const AlumniContacts = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F4F6F8", // Light grey background
   },
   headerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "flex-start", // Ensures back button and text are properly aligned
-    paddingHorizontal: 16,
+    justifyContent: "center",
     paddingVertical: 20,
+    backgroundColor: "#5ca7d8", // Light blue header
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
   backButton: {
-    paddingRight: 10,
+    position: "absolute",
+    left: 16,
   },
   headerText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#000",
+    color: "#fff",
   },
   list: {
     paddingHorizontal: 16,
-    paddingBottom: 20,
+    paddingTop: 10,
+    paddingBottom: 80, // Prevent content from being hidden by the bottom
   },
   card: {
-    height: 100,
-    backgroundColor: "#4DA4E0",
-    borderRadius: 50,
+    backgroundColor: "#fff",
+    borderRadius: 20,
     flexDirection: "row",
     alignItems: "center",
     padding: 10,
-    marginBottom: 20,
+    marginBottom: 15,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 3,
+    shadowRadius: 4,
     elevation: 2,
   },
   profileImage: {
-    borderWidth: 2,
-    width: 80,
-    height: 80,
-    borderRadius: 50,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     marginRight: 15,
+    borderColor: "#4DA4E0", // Matching border color with header
+    borderWidth: 2,
   },
   textContainer: {
     flex: 1,
@@ -246,33 +264,33 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#333",
   },
   role: {
     fontSize: 14,
-    color: "#fff",
+    color: "#666",
   },
   details: {
     fontSize: 12,
-    color: "#d3e8ff",
+    color: "#888",
   },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     backgroundColor: "#fff",
     borderRadius: 20,
-    padding: 20,
+    padding: 30,
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: "85%",
+    width: "90%",
   },
   modalCloseIcon: {
     alignSelf: "flex-end",
@@ -282,21 +300,26 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 60,
     marginBottom: 15,
+    borderColor: "#4DA4E0",
+    borderWidth: 2,
   },
   modalName: {
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 10,
+    textAlign: "center",
   },
   modalRole: {
     fontSize: 18,
     color: "#666",
     marginBottom: 10,
+    textAlign: "center",
   },
   modalDetails: {
     fontSize: 14,
     color: "#aaa",
     marginBottom: 20,
+    textAlign: "center",
   },
   modalInfoContainer: {
     width: "100%",
@@ -306,6 +329,9 @@ const styles = StyleSheet.create({
   modalInfoText: {
     fontSize: 16,
     marginBottom: 10,
+    color: "#007AFF", // Highlight the email text in blue
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
   modalSocials: {
     flexDirection: "row",
@@ -313,12 +339,21 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 20,
   },
-  socialIconContainer: {
+  socialButton: {
+    flexDirection: "row",
     alignItems: "center",
+    backgroundColor: "#F4F6F8",
+    padding: 10,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
   socialText: {
     fontSize: 14,
-    marginTop: 5,
+    marginLeft: 8,
   },
 });
 
