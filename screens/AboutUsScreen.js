@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity
 import { LinearGradient } from 'expo-linear-gradient'; // For gradient overlay
 import { Ionicons } from '@expo/vector-icons'; // For icons
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get('window'); // Get the device width
 
 const AboutUsScreen = () => {
   const handleEmailPress = () => {
@@ -28,7 +28,6 @@ const AboutUsScreen = () => {
         <Text style={styles.heroTitle}>About Us</Text>
       </ImageBackground>
 
-
       {/* Introduction Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Our Mission</Text>
@@ -40,7 +39,7 @@ const AboutUsScreen = () => {
       {/* Team Section */}
       <View style={styles.sectionAlt}>
         <Text style={styles.sectionTitle}>Our Team</Text>
-        <View style={styles.teamContainer}>
+        <View style={styles.teamGrid}>
           {/* Team Member 1 - Mihir */}
           <View style={styles.teamMember}>
             <Image
@@ -70,9 +69,7 @@ const AboutUsScreen = () => {
             <Text style={styles.teamName}>Achyut Dobaria</Text>
             <Text style={styles.teamRole}>*********</Text>
           </View>
-        </View>
 
-        <View style={styles.teamContainer}>
           {/* Team Member 4 */}
           <View style={styles.teamMember}>
             <Image
@@ -201,17 +198,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4DA4E0', // Highlight the company name in blue
   },
-  teamContainer: {
+  teamGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',  // Wraps items to the next row if screen width is smaller
     justifyContent: 'space-around',
-    marginTop: 20,
   },
   teamMember: {
     alignItems: 'center',
     backgroundColor: '#fff',
     padding: 15,
     borderRadius: 15,
-    width: '30%',
+    width: width * 0.1, // Each team member takes up 40% of the screen width
+    minWidth: 120,  // Minimum width for each card
+    margin: 5,  // Spacing around cards
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.05,

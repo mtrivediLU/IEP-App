@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StatusBar, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Ionicons } from "@expo/vector-icons";
+import * as SplashScreen from "expo-splash-screen";  // Import splash screen
 
 // Import screens
 import HomeScreen from "./screens/HomeScreen";
@@ -94,10 +95,30 @@ const HomeStack = () => (
     <Stack.Screen name="TrailsNearSudbury" component={TrailsNearSudbury} />
   </Stack.Navigator>
 );
+
 // Create Bottom Tab Navigator
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  useEffect(() => {
+    async function prepare() {
+      try {
+        // Keep the splash screen visible while we fetch resources
+        await SplashScreen.preventAutoHideAsync();
+
+        // Simulate a delay, e.g., 3 seconds
+        await new Promise(resolve => setTimeout(resolve, 3000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        // Hide the splash screen
+        await SplashScreen.hideAsync();
+      }
+    }
+
+    prepare();
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar barStyle="dark-content" />
@@ -111,7 +132,9 @@ export default function App() {
             } else if (route.name === "Chat") {
               iconName = focused ? "chatbubble" : "chatbubble-outline";
             } else if (route.name === "About Us") {
-              iconName = focused ? "information-circle" : "information-circle-outline";
+              iconName = focused
+                ? "information-circle"
+                : "information-circle-outline";
             }
 
             return <Ionicons name={iconName} size={size} color={color} />;

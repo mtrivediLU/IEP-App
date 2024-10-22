@@ -4,15 +4,17 @@
     "slug": "Alumni",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/splash.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/splash.png",  
+      "resizeMode": "contain",         
+      "backgroundColor": "#ffffff"    
     },
     "ios": {
       "supportsTablet": true
     },
+    "platforms": ["ios", "android"],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

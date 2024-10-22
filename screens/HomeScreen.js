@@ -74,8 +74,7 @@ const HomeScreen = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Text style={styles.title2}>Welcome Students</Text>
-        <Text style={styles.title}>Explore AlumniLink</Text>
-
+        <Text style={styles.title}>Explore GTU Laurentian Connect</Text>
         {cardData.map((card, index) => (
           <TouchableOpacity
             key={index}
@@ -96,6 +95,8 @@ const HomeScreen = ({ navigation }) => {
                   index % 2 === 0 ? styles.rowLeft : styles.rowRight,
                 ]}
               >
+                {/* Dark overlay to enhance text visibility */}
+                <View style={styles.overlay} />
                 <Image
                   source={card.image}
                   style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]}
@@ -151,10 +152,16 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 6, // Subtle shadow for depth
   },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0, 0, 0, 0.3)", // Semi-transparent dark overlay
+    borderRadius: 16,
+  },
   cardContent: {
     flexDirection: "row",
     alignItems: "center",
     height: "100%",
+    position: "relative",
   },
   rowLeft: {
     flexDirection: "row",
@@ -179,16 +186,16 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "700",
     color: "#fff", // Set to white for contrast
-    textShadowColor: "#000", // Add shadow for better visibility
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
+    textShadowColor: "#000", // Add stronger shadow for better visibility
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
   },
   cardLink: {
     fontSize: 14,
     color: "#fff", // Ensure this is also white
-    textShadowColor: "#000", // Add shadow for better visibility
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
+    textShadowColor: "#000", // Add stronger shadow for better visibility
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 4,
   },
 });
 
