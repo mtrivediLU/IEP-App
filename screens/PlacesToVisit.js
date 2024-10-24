@@ -6,6 +6,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  StatusBar, // Import StatusBar from react-native
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
@@ -97,15 +98,23 @@ const PlacesToVisit = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Set the StatusBar background color */}
+      <StatusBar backgroundColor="#f0f4f8" barStyle="dark-content" />
+
       {/* Header with back button */}
       <View style={styles.headerContainer}>
         <TouchableOpacity
           onPress={() => navigation.goBack()}
           style={styles.backButton}
         >
-          <Ionicons name="arrow-back" size={28} color="#fff" />
+          <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
+
+        {/* Centered Title */}
         <Text style={styles.header}>Places to Visit</Text>
+
+        {/* Empty view for symmetrical spacing */}
+        <View style={{ width: 28 }} />
       </View>
 
       {/* FlatList for displaying places */}
@@ -130,26 +139,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    paddingVertical: 20,
-    backgroundColor: "#268acb",
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-    marginBottom: 15,
+    marginBottom: 8,
+    paddingVertical: 5, // Reduced vertical padding to remove extra space
+    justifyContent: "space-between", // To ensure equal space between back button and title
   },
   backButton: {
     marginRight: 16,
   },
   header: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
-    flex: 1,
+    flex: 1, // Ensures the header is centered
   },
   list: {
     paddingHorizontal: 16,

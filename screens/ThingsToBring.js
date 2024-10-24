@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  Animated,
+  StatusBar, // Import StatusBar from react-native
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -80,16 +80,6 @@ const thingsToBringData = [
 
 const ThingsToBring = () => {
   const navigation = useNavigation();
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  // Trigger fade-in animation when the component is loaded
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000, // 1 second for fade-in
-      useNativeDriver: true,
-    }).start();
-  }, []);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
@@ -105,16 +95,24 @@ const ThingsToBring = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View style={[styles.animatedContainer, { opacity: fadeAnim }]}>
+      {/* Set the StatusBar background color */}
+      <StatusBar backgroundColor="#f4f5f7" barStyle="dark-content" />
+
+      <View style={styles.animatedContainer}>
         <View style={styles.headerContainer}>
           {/* Back button */}
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Ionicons name="arrow-back" size={28} color="#007AFF" />
+            <Ionicons name="arrow-back" size={28} color="#000" />
           </TouchableOpacity>
+
+          {/* Centered Header */}
           <Text style={styles.header}>Things to Bring</Text>
+
+          {/* Empty view for symmetrical spacing */}
+          <View style={{ width: 28 }} />
         </View>
 
         <FlatList
@@ -126,7 +124,7 @@ const ThingsToBring = () => {
           columnWrapperStyle={styles.row}
           contentContainerStyle={styles.list} // This is where the padding is added
         />
-      </Animated.View>
+      </View>
     </SafeAreaView>
   );
 };
@@ -134,7 +132,7 @@ const ThingsToBring = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f5f7",
+    backgroundColor: "#f4f5f7", // Match background color to StatusBar
     padding: 16,
   },
   animatedContainer: {
@@ -144,16 +142,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 16,
+    justifyContent: "space-between", // Ensure even spacing between elements
+  },
+  header: {
+    fontSize: 25,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#000",
+    flex: 1, // Ensures the header is centered
   },
   backButton: {
     marginRight: 10,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "#007AFF",
-    flex: 1, // Ensures the header is centered
   },
   list: {
     paddingBottom: 80, // Adding padding to avoid content being overlapped by the bottom navigation
