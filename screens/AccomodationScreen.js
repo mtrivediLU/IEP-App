@@ -7,11 +7,11 @@ import {
   TouchableOpacity,
   StyleSheet,
   SafeAreaView,
-  Animated, // Import Animated for animations
+  StatusBar, // Import StatusBar from react-native
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { LinearGradient } from 'expo-linear-gradient'; // Import LinearGradient for gradient backgrounds
+import { LinearGradient } from "expo-linear-gradient"; // Import LinearGradient for gradient backgrounds
 
 const data = [
   {
@@ -60,33 +60,15 @@ const data = [
 
 const AccommodationScreen = () => {
   const navigation = useNavigation();
-  const scaleValue = new Animated.Value(1); // Animation state
-
-  const onPressIn = () => {
-    Animated.spring(scaleValue, {
-      toValue: 0.95,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const onPressOut = () => {
-    Animated.spring(scaleValue, {
-      toValue: 1,
-      friction: 5,
-      useNativeDriver: true,
-    }).start();
-  };
 
   const renderItem = ({ item }) => (
     <TouchableOpacity
-      onPressIn={onPressIn}
-      onPressOut={onPressOut}
       activeOpacity={0.9}
       onPress={() => navigation.navigate(item.screen)} // Ensure screen name is correct
     >
-      <Animated.View style={[styles.card, { transform: [{ scale: scaleValue }] }]}>
+      <View style={styles.card}>
         <LinearGradient
-          colors={['#f9f9f9', '#f1f1f1']}
+          colors={["#f9f9f9", "#f1f1f1"]}
           style={styles.gradientBackground}
         >
           <Image source={item.imageUrl} style={styles.image} />
@@ -101,15 +83,18 @@ const AccommodationScreen = () => {
             style={styles.iconButton}
           />
         </LinearGradient>
-      </Animated.View>
+      </View>
     </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Set the StatusBar background color */}
+      <StatusBar backgroundColor="#f4f5f7" barStyle="dark-content" />
+
       <View style={styles.headerContainer}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={28} color="#007AFF" />
+          <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
         <Text style={styles.header}>Accommodation</Text>
         <View style={{ width: 28 }} />
@@ -138,15 +123,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 10,
     paddingVertical: 10,
-    borderBottomColor: "#d4d4d4",
-    borderBottomWidth: 1,
   },
   header: {
-    fontSize: 28,
+    fontSize: 25,
     fontWeight: "bold",
-    color: "#007AFF",
+    color: "#000",
     textAlign: "center",
     flex: 1,
   },
@@ -154,10 +137,10 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 16, // Increased rounding for modern feel
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.15,
-    shadowRadius: 10,
-    elevation: 5,
+    // shadowOffset: { width: 0, height: 8 },
+    // shadowOpacity: 0.15,
+    // shadowRadius: 10,
+    elevation: 2,
   },
   gradientBackground: {
     flexDirection: "row",

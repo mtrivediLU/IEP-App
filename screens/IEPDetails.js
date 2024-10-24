@@ -7,6 +7,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Linking,
+  StatusBar, // Import StatusBar from react-native
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native"; // Import navigation
@@ -29,13 +30,24 @@ const IEPDetails = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Set the StatusBar background color */}
+      <StatusBar backgroundColor="#f9f9f9" barStyle="dark-content" />
+
       {/* Header */}
       <View style={styles.headerContainer}>
         <View style={styles.header}>
+          {/* Back Button */}
           <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color="#fff" />
+            <Ionicons name="arrow-back" size={28} color="#000" />
           </TouchableOpacity>
+
+          {/* Title */}
           <Text style={styles.headerTitle}>What is IEP?</Text>
+
+          {/* Empty space to balance layout */}
+          <TouchableOpacity style={styles.backButton}>
+            {/* Empty button to balance the header layout */}
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -53,7 +65,9 @@ const IEPDetails = () => {
 
         {/* Title Section */}
         <View style={styles.contentContainer}>
-          <Text style={styles.subTitle}>“International Experience Program”</Text>
+          <Text style={styles.subTitle}>
+            “International Experience Program”
+          </Text>
 
           {/* Description Section */}
           <View style={styles.descriptionCard}>
@@ -84,7 +98,7 @@ const IEPDetails = () => {
             style={styles.handbookButton}
             onPress={handleHandbookPress}
           >
-            <Ionicons name="download-outline" size={22} color="#fff" />
+            <Ionicons name="download-outline" size={28} color="#fff" />
             <Text style={styles.handbookButtonText}>Download IEP Handbook</Text>
           </TouchableOpacity>
         </View>
@@ -96,35 +110,28 @@ const IEPDetails = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#f9f9f9", // Match this background color to the StatusBar
   },
   headerContainer: {
-    backgroundColor: "#5ca7d8",
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     paddingBottom: 15,
     shadowColor: "#000",
-    shadowOffset: { width: 4, height: 6 }, // Increase offset for more depth
-    shadowOpacity: 0.8, // Increase opacity for a darker shadow
-    shadowRadius: 10, // Increase blur for a more pronounced shadow
-    elevation: 20, // Increase elevation for a higher shadow effect
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    paddingTop: 30,
-    position: "relative", // To position the back button absolutely
+    justifyContent: "space-between", // Ensure equal horizontal spacing
+    paddingHorizontal: 20, // Add padding for spacing
   },
   backButton: {
-    position: "absolute",
-    left: 16,
-    top: 20, // Adjust if necessary based on your design
+    width: 40, // Set width for alignment
+    alignItems: "center", // Center icon horizontally
   },
   headerTitle: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#000",
     textAlign: "center",
   },
   scrollContent: {
@@ -217,5 +224,3 @@ const styles = StyleSheet.create({
 });
 
 export default IEPDetails;
-
-
