@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     backgroundColor: "#5ca7d8",
-    borderBottomLeftRadius: 50,
-    borderBottomRightRadius: 50,
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
     paddingBottom: 15,
     shadowColor: "#000",
     shadowOffset: { width: 4, height: 6 }, // Increase offset for more depth

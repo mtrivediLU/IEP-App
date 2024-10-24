@@ -95,13 +95,12 @@ const HomeScreen = ({ navigation }) => {
                   index % 2 === 0 ? styles.rowLeft : styles.rowRight,
                 ]}
               >
-                {/* Dark overlay to enhance text visibility */}
-                <View style={styles.overlay} />
                 <Image
                   source={card.image}
                   style={[styles.icon, index % 2 === 0 ? styles.iconLeft : null]}
                 />
                 <View style={styles.textContainer}>
+                  {/* Updated text colors for better visibility */}
                   <Text style={styles.cardTitle}>{card.title}</Text>
                   <Text style={styles.cardLink}>Show More →</Text>
                 </View>
@@ -152,14 +151,10 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 6, // Subtle shadow for depth
   },
-  overlay: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: "rgba(0, 0, 0, 0.3)", // Semi-transparent dark overlay
-    borderRadius: 16,
-  },
   cardContent: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center", // Center content vertically
     height: "100%",
     position: "relative",
   },
@@ -181,21 +176,16 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     paddingHorizontal: 10,
+    justifyContent: "center", // Center text vertically in the container
   },
   cardTitle: {
     fontSize: 20,
     fontWeight: "700",
-    color: "#fff", // Set to white for contrast
-    textShadowColor: "#000", // Add stronger shadow for better visibility
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
+    color: "#222", // Darker color for better contrast
   },
   cardLink: {
     fontSize: 14,
-    color: "#fff", // Ensure this is also white
-    textShadowColor: "#000", // Add stronger shadow for better visibility
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 4,
+    color: "#444", // Slightly lighter text color for contrast
   },
 });
 
