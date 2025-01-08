@@ -55,7 +55,7 @@ const IEPDetails = () => {
         {/* Image Section */}
         <View style={styles.imageContainer}>
           <Image
-            source={require("../assets/IEP-group.jpg")} // Replace with the actual image URL or local asset
+            source={require("../assets/IEP_group.jpg")} // Replace with the actual image URL or local asset
             style={styles.image}
           />
           <TouchableOpacity style={styles.button} onPress={handleKnowMorePress}>

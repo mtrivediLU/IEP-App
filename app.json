@@ -4,10 +4,10 @@
     "slug": "Alumni",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/splash.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",  
+      "image": "./assets/icon.png",  
       "resizeMode": "contain",         
       "backgroundColor": "#ffffff"    
     },
@@ -18,17 +18,19 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "minSdkVersion": 21
       },
       "package": "com.achyut_dobaria.Alumni"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {
         "projectId": "30773262-810a-48d1-9151-994c26f6db69"
       }
     }
+    
   }
 }

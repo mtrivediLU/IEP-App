@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }) => {
     },
     {
       title: "Cafes & Restaurants",
-      image: require("../assets/cafe&restro.png"),
+      image: require("../assets/cafe-restro.png"),
       details: "Dining service details.",
       navigateTo: "cafeandrestro",
     },
