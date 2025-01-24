@@ -1,36 +1,38 @@
 {
   "expo": {
-    "name": "Alumni",
-    "slug": "Alumni",
+    "name": "GTU Laurentian Connect",
+    "slug": "gtu-laurentian-connect",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon.png",  
-      "resizeMode": "contain",         
-      "backgroundColor": "#ffffff"    
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gtu.laurentianconnect",
+      "buildNumber": "1.0.0",
+      "newArchEnabled": true
     },
-    "platforms": ["ios", "android"],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "minSdkVersion": 21
+        "backgroundColor": "#ffffff"
       },
-      "package": "com.achyut_dobaria.Alumni"
+      "package": "com.gtu.laurentianconnect",
+      "newArchEnabled": true
     },
     "web": {
       "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "30773262-810a-48d1-9151-994c26f6db69"
+        "projectId": "ec5d13a3-9705-493a-8715-4ff3b6a64086"
       }
-    }
-    
+    },
+    "owner": "achyut_dobaria"
   }
 }
