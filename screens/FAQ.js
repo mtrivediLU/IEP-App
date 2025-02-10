@@ -130,7 +130,7 @@ const faqData = [
     id: "20",
     question: "There will be a travel converter/ adaptor necessary?",
     answer:
-      "Yes, required.",
+      "Yes, Required.",
   },
   {
     id: "21",
