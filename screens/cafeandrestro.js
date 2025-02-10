@@ -1,10 +1,12 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions, ScrollView, Linking } from 'react-native';
+import { 
+  View, Text, StyleSheet, Image, TouchableOpacity, FlatList, Dimensions, ScrollView, Linking 
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window');
 
-// Replace with actual images for dining services
+// Sample images for dining services
 const images = [
   require('../assets/cr-1.jpg'),
   require('../assets/cr-2.jpg'),
@@ -17,18 +19,17 @@ const DiningServices = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isManualScroll, setIsManualScroll] = useState(false);
 
-  // Initialize restaurants list inside the component
-  const [restaurants, setRestaurants] = useState([
+  const restaurants = [
     { name: "Starbucks", address: "555 Barry Downe Rd, Greater Sudbury, ON P3A 0B2, Canada" },
     { name: "Taj Bistro", address: "151 Larch St, Greater Sudbury, ON P3E 1C3, Canada" },
     { name: "Beard's Coffee Bar And Bakery", address: "587 Kathleen St, Greater Sudbury, ON P3C 2N4, Canada" },
-    { name: "Salute Coffee Company", address: "C2V7+GV Sudbury, Greater Sudbury, ON, Canada" },
+    { name: "Salute Coffee Company", address: "2195 Armstrong St, Greater Sudbury, ON P3E 4W2, Canada" },
     { name: "J&M Indian Cuisine", address: "2037 Long Lake Rd #3, Greater Sudbury, ON P3E 6J9, Canada" },
-    { name: "SUKHDEV RESTAURANT", address: "F2P6+MH Sudbury, Greater Sudbury, ON, Canada" },
+    { name: "Sukhdev Restaurant", address: "390 Elgin St, Greater Sudbury, ON P3E 3E5, Canada" },
     { name: "Restaurant Garuda", address: "1893 Lasalle Blvd, Greater Sudbury, ON P3A 2A3, Canada" },
-  ]);
+  ];
 
-  // Auto-switch images every 2 seconds
+  // Auto-scroll images every 2.5 seconds
   useEffect(() => {
     const autoScroll = () => {
       if (!isManualScroll) {
@@ -38,14 +39,11 @@ const DiningServices = ({ navigation }) => {
       }
     };
 
-    const interval = setInterval(autoScroll, 2000);
-
+    const interval = setInterval(autoScroll, 2500);
     return () => clearInterval(interval);
   }, [currentIndex, isManualScroll]);
 
-  const handleScroll = () => {
-    setIsManualScroll(true);
-  };
+  const handleScroll = () => setIsManualScroll(true);
 
   const handleMomentumScrollEnd = (event) => {
     const contentOffsetX = event.nativeEvent.contentOffset.x;
@@ -84,30 +82,33 @@ const DiningServices = ({ navigation }) => {
           {images.map((_, index) => (
             <View
               key={index}
-              style={[styles.dot, { backgroundColor: currentIndex === index ? '#555' : '#ddd' }]}
+              style={[styles.dot, { backgroundColor: currentIndex === index ? '#007AFF' : '#ddd' }]}
             />
           ))}
         </View>
       </View>
 
-      {/* Card Section with Details */}
+      {/* Dining Services Section */}
       <View style={styles.card}>
-        <View style={styles.textContainer}>
-          <Text style={styles.title}>Cafes & Restaurants Available in Sudbury</Text>
+        <Text style={styles.title}>Cafes & Restaurants Available in Sudbury</Text>
 
-          {/* Dining Services List */}
-          {restaurants.map((service, index) => (
-            <View key={index} style={styles.storeContainer}>
-              <Text style={styles.storeName}>{service.name}</Text>
-              <Text style={styles.storeAddress}>{service.address}</Text>
-              <TouchableOpacity style={styles.button} onPress={() => handleGetDirections(service)}>
-                <Text style={styles.buttonText}>Get Directions</Text>
-                <Ionicons name="arrow-forward-circle-outline" size={20} color="#fff" />
-              </TouchableOpacity>
-            </View>
-          ))}
-        </View>
+        {/* Dining Services List */}
+        {restaurants.map((service, index) => (
+          <View key={index} style={styles.storeContainer}>
+            <Text style={styles.storeName}>{service.name}</Text>
+            <Text style={styles.storeAddress}>{service.address}</Text>
+            
+            {/* Updated Button */}
+            <TouchableOpacity style={styles.button} onPress={() => handleGetDirections(service)}>
+              <Ionicons name="location-outline" size={22} color="#fff" style={styles.icon} />
+              <Text style={styles.buttonText}>Get Directions</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
       </View>
+
+      {/* Bottom Margin to prevent navigation overlap */}
+      <View style={styles.bottomSpacing}></View>
     </ScrollView>
   );
 };
@@ -115,8 +116,8 @@ const DiningServices = ({ navigation }) => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#f0f4f8',
-    marginBottom: 30, // Padding to prevent bottom navigation overlap
+    backgroundColor: '#f8f9fa',
+    marginBottom: 30,
   },
   imageContainer: {
     position: 'relative',
@@ -125,12 +126,14 @@ const styles = StyleSheet.create({
     width: width,
     height: 350,
     resizeMode: 'cover',
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   backButton: {
     position: 'absolute',
     top: 40,
     left: 20,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     padding: 8,
     borderRadius: 20,
     borderWidth: 1,
@@ -161,17 +164,23 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     elevation: 5,
   },
-  textContainer: {
-    marginBottom: 20,
-  },
   title: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#003366',
     marginBottom: 20,
+    textAlign: 'center',
   },
   storeContainer: {
-    marginBottom: 20,
+    backgroundColor: '#f1f5f9',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
   },
   storeName: {
     fontSize: 18,
@@ -185,24 +194,29 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#007AFF',
-    borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    borderRadius: 25,
+    paddingVertical: 12,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    alignSelf: 'flex-start',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '60%',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 5,
   },
+  icon: {
+    marginRight: 8,
+  },
   buttonText: {
     color: '#fff',
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 'bold',
-    marginRight: 5,
+  },
+  bottomSpacing: {
+    height: 50, // Extra margin at the bottom to prevent overlap
   },
 });
 

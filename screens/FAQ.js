@@ -130,7 +130,7 @@ const faqData = [
     id: "20",
     question: "There will be a travel converter/ adaptor necessary?",
     answer:
-      "",
+      "Yes, required.",
   },
   {
     id: "21",
@@ -152,7 +152,7 @@ const faqData = [
   },
   {
     id: "24",
-    question: "In campus, which shop/ cafe is there?",
+    question: "In campus, which shop/cafe is there?",
     answer:
       "There's Tim Hortons for coffee and some snacks but even that will close after 3pm (confirm the timings once you get there.) there are other shops too but as they have break during our visit none of them are open and we didn't really visit which may have been open. ",
   },

@@ -6,7 +6,8 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
-  StatusBar, // Import StatusBar from react-native
+  StatusBar,
+  Animated, // Import Animated for smooth effects
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -17,63 +18,63 @@ const thingsToBringData = [
     id: "1",
     title: "Documents",
     image: require("../assets/Thingstobring/Document.png"),
-    backgroundColor: "#D1C4E9", // Muted lavender
+    backgroundColor: "rgba(209, 196, 233, 0.2)", // Muted lavender
     screen: "DocumentsDetail",
   },
   {
     id: "2",
     title: "Stationary",
     image: require("../assets/Thingstobring/Stationery.png"),
-    backgroundColor: "#B3E5FC", // Muted light blue
+    backgroundColor: "rgba(179, 229, 252, 0.2)", // Muted light blue
     screen: "StationaryDetail",
   },
   {
     id: "3",
     title: "Electronics",
     image: require("../assets/Thingstobring/Electronics.png"),
-    backgroundColor: "#FFCCBC", // Soft peach
+    backgroundColor: "rgba(255, 204, 188, 0.2)", // Soft peach
     screen: "ElectronicsDetail",
   },
   {
     id: "4",
     title: "Entertainment",
     image: require("../assets/Thingstobring/Entertainment.png"),
-    backgroundColor: "#C8E6C9", // Pale green
+    backgroundColor: "rgba(200, 230, 201, 0.2)", // Pale green
     screen: "EntertainmentDetail",
   },
   {
     id: "5",
     title: "Miscellaneous",
     image: require("../assets/Thingstobring/Miscellaneous.png"),
-    backgroundColor: "#FFECB3", // Light muted yellow
+    backgroundColor: "rgba(255, 236, 179, 0.2)", // Light muted yellow
     screen: "MiscellaneousDetail",
   },
   {
     id: "6",
     title: "Personal Care",
     image: require("../assets/Thingstobring/personal_care.png"),
-    backgroundColor: "#F8BBD0", // Soft pink
+    backgroundColor: "rgba(248, 187, 208, 0.2)", // Soft pink
     screen: "PersonalCareDetail",
   },
   {
     id: "7",
     title: "Clothing",
     image: require("../assets/Thingstobring/Clothing.png"),
-    backgroundColor: "#CFD8DC", // Light gray-blue
+    backgroundColor: "rgba(207, 216, 220, 0.2)", // Light gray-blue
     screen: "ClothingDetail",
   },
   {
     id: "8",
     title: "Snacks",
     image: require("../assets/Thingstobring/Snacks.png"),
-    backgroundColor: "#FFF9C4", // Pale yellow
+    backgroundColor: "rgba(255, 249, 196, 0.2)", // Pale yellow
     screen: "SnacksDetail",
   },
   {
     id: "9",
     title: "Financial Items",
     image: require("../assets/Thingstobring/Financial_items.png"),
-    backgroundColor: "#B2DFDB", // Soft teal
+    backgroundColor: "rgba(178, 223, 219, 0.2)", // Soft teal
     screen: "FinancialDetail",
   },
 ];
@@ -84,7 +85,8 @@ const ThingsToBring = () => {
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={[styles.card, { backgroundColor: item.backgroundColor }]}
-      onPress={() => navigation.navigate(item.screen)} // Navigate to respective detail screen
+      onPress={() => navigation.navigate(item.screen)}
+      activeOpacity={0.8}
     >
       <View style={styles.imageContainer}>
         <Image source={item.image} style={styles.cardImage} />
@@ -96,16 +98,13 @@ const ThingsToBring = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Set the StatusBar background color */}
-      <StatusBar backgroundColor="#f4f5f7" barStyle="dark-content" />
+      <StatusBar backgroundColor="#ffffff" barStyle="dark-content" />
 
       <View style={styles.animatedContainer}>
         <View style={styles.headerContainer}>
           {/* Back button */}
-          <TouchableOpacity
-            onPress={() => navigation.goBack()}
-            style={styles.backButton}
-          >
-            <Ionicons name="arrow-back" size={28} color="#000" />
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={28} color="#333" />
           </TouchableOpacity>
 
           {/* Centered Header */}
@@ -122,7 +121,7 @@ const ThingsToBring = () => {
           keyExtractor={(item) => item.id}
           numColumns={2}
           columnWrapperStyle={styles.row}
-          contentContainerStyle={styles.list} // This is where the padding is added
+          contentContainerStyle={styles.list}
         />
       </View>
     </SafeAreaView>
@@ -132,7 +131,7 @@ const ThingsToBring = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f4f5f7", // Match background color to StatusBar
+    backgroundColor: "#ffffff", // White background
     padding: 16,
   },
   animatedContainer: {
@@ -142,55 +141,66 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 16,
-    justifyContent: "space-between", // Ensure even spacing between elements
+    justifyContent: "space-between",
   },
   header: {
     fontSize: 25,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#000",
-    flex: 1, // Ensures the header is centered
+    color: "#003366", // Modern deep blue text
+    flex: 1,
   },
   backButton: {
     marginRight: 10,
   },
   list: {
-    paddingBottom: 80, // Adding padding to avoid content being overlapped by the bottom navigation
+    paddingBottom: 80,
   },
   row: {
     justifyContent: "space-between",
     marginBottom: 20,
   },
   card: {
-    borderRadius: 15,
+    borderRadius: 13, // Increased border radius for better separation
     alignItems: "center",
     justifyContent: "center",
-    padding: 16,
+    padding: 30, // Added padding to push image away from the border
     marginBottom: 20,
     width: "45%",
-    shadowColor: "#000",
+    shadowColor: "#00AEEF",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 5,
+    borderWidth: 1,
+    borderColor: "rgba(0, 174, 239, 0.3)", // Light blue border
+    overflow: "hidden", // Ensures everything stays within card boundaries
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Transparent White
   },
   imageContainer: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "rgba(255, 255, 255, 0.9)", // White with slight transparency
     borderRadius: 50,
-    padding: 15,
+    padding: 15, // Increased padding for better separation
     elevation: 2,
+    shadowColor: "#00AEEF",
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
+    marginTop: -10, // Moves image slightly down to avoid overlap
+    borderWidth: 2, // Add a border to separate image and card
+    borderColor: "rgba(0, 174, 239, 0.4)", // Light Blue Border for the Image
   },
   cardImage: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
+    resizeMode: "contain",
   },
   cardText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "#333", // Darker text for better readability
+    color: "#003366",
     textAlign: "center",
     marginTop: 12,
-    letterSpacing: 0.5, // Slight letter spacing for a modern look
+    letterSpacing: 0.5,
   },
 });
 

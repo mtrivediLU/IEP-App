@@ -28,16 +28,6 @@ const alumniData = [
   },
   {
     id: "2",
-    name: "Divyesh Thakur",
-    role: "Student (CSE)",
-    details: "IEP 2024",
-    image: require("../assets/Contacts/Divyesh.jpg"), // Replace with actual image path
-    email: "divyesh@example.com",
-    instagram: "https://www.instagram.com/divyeshxthakur/", // Replace with actual Instagram URL
-    linkedin: "https://www.linkedin.com/in/divyesh-thakur-82b75b220/", // Replace with actual LinkedIn URL
-  },
-  {
-    id: "3",
     name: "Achyut Dobaria",
     role: "Student (IT)",
     details: "IEP 2024",
@@ -45,6 +35,16 @@ const alumniData = [
     email: "achyutdobaria@gmail.com",
     instagram: "https://www.instagram.com/achyut_dobaria/",
     linkedin: "https://www.linkedin.com/in/achyut-dobaria-3b0710201",
+  },
+  {
+    id: "3",
+    name: "Divyesh Thakur",
+    role: "Student (CSE)",
+    details: "IEP 2024",
+    image: require("../assets/Contacts/Divyesh.jpg"), // Replace with actual image path
+    email: "divyeshthakur1524@gmail.com",
+    instagram: "https://www.instagram.com/divyeshxthakur/", // Replace with actual Instagram URL
+    linkedin: "https://www.linkedin.com/in/divyesh-thakur-82b75b220/", // Replace with actual LinkedIn URL
   },
   {
     id: "4",

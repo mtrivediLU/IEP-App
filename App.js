@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { StatusBar, View } from "react-native";
+import { StatusBar, View, StyleSheet, Animated, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -121,7 +121,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size, focused }) => {
@@ -132,32 +132,42 @@ export default function App() {
             } else if (route.name === "Chat") {
               iconName = focused ? "chatbubble" : "chatbubble-outline";
             } else if (route.name === "About Us") {
-              iconName = focused
-                ? "information-circle"
-                : "information-circle-outline";
+              iconName = focused ? "information-circle" : "information-circle-outline";
             }
 
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return (
+              <Animated.View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
+                <Ionicons
+                  name={iconName}
+                  size={size}
+                  color={color}
+                  style={[styles.icon, focused && styles.activeIcon]}
+                />
+              </Animated.View>
+            );
           },
-          tabBarActiveTintColor: "#4CAF50", // Green color for active tab
-          tabBarInactiveTintColor: "#6c757d", // Soft gray for inactive tab
+          tabBarActiveTintColor: "#00FFFF", // Neon blue for active tab
+          tabBarInactiveTintColor: "#9BA4B5", // Soft gray for inactive tab
+          tabBarShowLabel: true,
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: "bold",
             marginBottom: 5,
           },
           tabBarStyle: {
-            backgroundColor: "#f8f9fa", // Light background for tab bar
             position: "absolute",
-            bottom: 20,
+            bottom: Platform.OS === "ios" ? 25 : 15,
             left: 20,
             right: 20,
             borderRadius: 30,
             height: 70,
-            shadowColor: "#000",
-            shadowOpacity: 0.1,
+            backgroundColor: "rgba(25, 25, 25, 0.9)", // Glassmorphic effect
+            shadowColor: "#00FFFF", // Neon glow
+            shadowOpacity: 0.2,
             shadowOffset: { width: 0, height: 5 },
-            elevation: 5,
+            elevation: 10,
+            borderWidth: 1,
+            borderColor: "rgba(0, 255, 255, 0.2)", // Subtle neon border
           },
           tabBarItemStyle: {
             marginVertical: 5,
@@ -165,38 +175,87 @@ export default function App() {
           tabBarIconStyle: {
             size: 30,
           },
-          tabBarBackground: () => (
-            <View
-              style={{
-                backgroundColor: "#f8f9fa", // Same light background as the tab bar
-                borderRadius: 30,
-                height: "100%",
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 6 },
-                shadowOpacity: 0.15,
-                elevation: 10,
-              }}
-            />
-          ),
           headerShown: false,
         })}
       >
         <Tab.Screen
           name="Home"
           component={HomeStack}
-          options={{ tabBarLabel: "Home" }}
+          options={{
+            tabBarLabel: "Home",
+            tabBarIcon: ({ color, size, focused }) => (
+              <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
+                <Ionicons
+                  name={focused ? "home" : "home-outline"}
+                  size={size}
+                  color={color}
+                  style={[styles.icon, focused && styles.activeIcon]}
+                />
+              </View>
+            ),
+          }}
         />
         <Tab.Screen
           name="Chat"
           component={ChatScreen}
-          options={{ tabBarLabel: "Chat" }}
+          options={{
+            tabBarLabel: "Chat",
+            tabBarIcon: ({ color, size, focused }) => (
+              <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
+                <Ionicons
+                  name={focused ? "chatbubble" : "chatbubble-outline"}
+                  size={size}
+                  color={color}
+                  style={[styles.icon, focused && styles.activeIcon]}
+                />
+              </View>
+            ),
+          }}
         />
         <Tab.Screen
           name="About Us"
           component={AboutUsScreen}
-          options={{ tabBarLabel: "About Us" }}
+          options={{
+            tabBarLabel: "About Us",
+            tabBarIcon: ({ color, size, focused }) => (
+              <View style={[styles.iconContainer, focused && styles.activeIconContainer]}>
+                <Ionicons
+                  name={focused ? "information-circle" : "information-circle-outline"}
+                  size={size}
+                  color={color}
+                  style={[styles.icon, focused && styles.activeIcon]}
+                />
+              </View>
+            ),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  iconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 20,
+    padding: 0,
+    transition: "all 0.3s ease-in-out",
+  },
+  activeIconContainer: {
+    backgroundColor: "rgba(0, 255, 255, 0.2)", // Soft neon glow effect
+    borderRadius: 50,
+    transform: [{ scale: 1.2 }], // Scale animation when active
+    shadowColor: "#00FFFF", // Neon blue shadow
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.5,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  icon: {
+    transition: "transform 0.3s ease-in-out",
+  },
+  activeIcon: {
+    transform: [{ scale: 1.2 }], // Slight zoom effect on active
+  },
+});

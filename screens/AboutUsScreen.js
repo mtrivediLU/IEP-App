@@ -1,30 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Dimensions, TouchableOpacity, Linking, ImageBackground } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient'; // For gradient overlay
-import { Ionicons } from '@expo/vector-icons'; // For icons
+import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 
-const { width } = Dimensions.get('window'); // Get the device width
+const { width } = Dimensions.get('window');
 
 const AboutUsScreen = () => {
   const handleEmailPress = () => {
     Linking.openURL('mailto:mtrivedi@laurentian.ca');
   };
 
-  const handleCallPress = () => {
-    Linking.openURL('tel:+917600044534');
-  };
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Hero Section with gradient overlay */}
+      {/* Hero Section */}
       <ImageBackground
-        source={{ uri: 'https://source.unsplash.com/1600x900/?nature,water' }} // Replace with any URL for an image
+        source={{ uri: 'https://source.unsplash.com/1600x900/?nature,water' }}
         style={styles.heroSection}
       >
-        <LinearGradient
-          colors={['rgba(0,0,0,0.6)', 'rgba(0,0,0,0)']}
-          style={styles.heroOverlay}
-        />
+        <LinearGradient colors={['rgba(0,0,0,0.6)', 'rgba(0,0,0,0)']} style={styles.heroOverlay} />
         <Text style={styles.heroTitle}>About Us</Text>
       </ImageBackground>
 
@@ -36,58 +29,51 @@ const AboutUsScreen = () => {
         </Text>
       </View>
 
-      {/* Team Section */}
-      <View style={styles.sectionAlt}>
+      {/* Our Team Section */}
+      <View style={styles.teamSection}>
         <Text style={styles.sectionTitle}>Our Team</Text>
-        <View style={styles.teamGrid}>
-          {/* Team Member 1 - Mihir */}
-          <View style={styles.teamMember}>
-            <Image
-              source={require('../assets/Contacts/Mihir.png')}
-              style={styles.teamImage}
-            />
-            <Text style={styles.teamName}>Mihir Trivedi</Text>
-            <Text style={styles.teamRole}>********</Text>
-          </View>
 
-          {/* Team Member 2 - Rudra */}
+        {/* Developers Section */}
+        <Text style={styles.subSectionTitle}>Developers</Text>
+        <View style={styles.teamRow}>
           <View style={styles.teamMember}>
-            <Image
-              source={require('../assets/Contacts/Rudra.jpg')}
-              style={styles.teamImage}
-            />
-            <Text style={styles.teamName}>Rudra Rajyaguru</Text>
-            <Text style={styles.teamRole}>*********</Text>
-          </View>
-
-          {/* Team Member 3 */}
-          <View style={styles.teamMember}>
-            <Image
-              source={require('../assets/Contacts/Achyut.jpg')}
-              style={styles.teamImage}
-            />
+            <Image source={require('../assets/Contacts/Achyut.jpg')} style={styles.teamImage} />
             <Text style={styles.teamName}>Achyut Dobaria</Text>
-            <Text style={styles.teamRole}>*********</Text>
+            <Text style={styles.teamRole}>Developer</Text>
           </View>
 
-          {/* Team Member 4 */}
           <View style={styles.teamMember}>
-            <Image
-              source={require('../assets/Contacts/Divyesh.jpg')}
-              style={styles.teamImage}
-            />
+            <Image source={require('../assets/Contacts/Divyesh.jpg')} style={styles.teamImage} />
             <Text style={styles.teamName}>Divyesh Thakur</Text>
-            <Text style={styles.teamRole}>*********</Text>
+            <Text style={styles.teamRole}>Developer</Text>
           </View>
 
-          {/* Team Member 5 */}
           <View style={styles.teamMember}>
-            <Image
-              source={require('../assets/Contacts/vatsalya.jpg')}
-              style={styles.teamImage}
-            />
+            <Image source={require('../assets/Contacts/vatsalya.jpg')} style={styles.teamImage} />
             <Text style={styles.teamName}>Vatsalya Dabhi</Text>
-            <Text style={styles.teamRole}>************</Text>
+            <Text style={styles.teamRole}>Developer</Text>
+          </View>
+        </View>
+
+        {/* Mentors Section */}
+        <Text style={styles.subSectionTitle}>Mentors</Text>
+        <View style={styles.teamRow}>
+          <View style={styles.teamMember}>
+            <Image source={require('../assets/Contacts/Dr.Ratvinder_grewal.jpeg')} style={styles.teamImage} />
+            <Text style={styles.teamName}>Dr. Ratvinder Grewal</Text>
+            <Text style={styles.teamRole}>Associate Professor at Laurentian University</Text>
+          </View>
+
+          <View style={styles.teamMember}>
+            <Image source={require('../assets/Contacts/Mihir.png')} style={styles.teamImage} />
+            <Text style={styles.teamName}>Mihir Trivedi</Text>
+            <Text style={styles.teamRole}>Software Developer - LoopX</Text>
+          </View>
+
+          <View style={styles.teamMember}>
+            <Image source={require('../assets/Contacts/Rudra.jpg')} style={styles.teamImage} />
+            <Text style={styles.teamName}>Rudra Rajyaguru</Text>
+            <Text style={styles.teamRole}>Assistant System Engineer - Tata Consultancy Services</Text>
           </View>
         </View>
       </View>
@@ -104,7 +90,7 @@ const AboutUsScreen = () => {
       <View style={styles.sectionAlt}>
         <Text style={styles.sectionTitle}>Get In Touch</Text>
         <Text style={styles.sectionText}>
-          We would love to hear from you! Feel free to reach out to us at our email or phone number below.
+          We would love to hear from you! Feel free to reach out to us via email below.
         </Text>
 
         {/* Email Button */}
@@ -112,20 +98,6 @@ const AboutUsScreen = () => {
           <Ionicons name="mail" size={24} color="#fff" />
           <Text style={styles.buttonText}>Email Us</Text>
         </TouchableOpacity>
-
-        {/* Call Button */}
-        <TouchableOpacity style={styles.contactButton} onPress={handleCallPress}>
-          <Ionicons name="call" size={24} color="#fff" />
-          <Text style={styles.buttonText}>Call Us</Text>
-        </TouchableOpacity>
-
-        {/* Address Display (No Button) */}
-        <View style={styles.addressContainer}>
-          <Ionicons name="location" size={24} color="#4DA4E0" />
-          <Text style={styles.addressText}>
-            2062/ E, Sanskarmandal, Bhavnagar, Gujarat, India.
-          </Text>
-        </View>
       </View>
     </ScrollView>
   );
@@ -134,7 +106,7 @@ const AboutUsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     paddingBottom: 90,
-    backgroundColor: '#f4f6f8', // Light background for modern look
+    backgroundColor: '#f4f6f8',
   },
   heroSection: {
     position: 'relative',
@@ -150,7 +122,6 @@ const styles = StyleSheet.create({
     fontSize: 42,
     color: '#fff',
     fontWeight: 'bold',
-    zIndex: 1,
     textTransform: 'uppercase',
     letterSpacing: 2,
     textShadowColor: 'rgba(0, 0, 0, 0.5)',
@@ -162,90 +133,76 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     marginVertical: 15,
     borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
     marginHorizontal: 16,
   },
   sectionAlt: {
     padding: 20,
-    backgroundColor: '#eef2f3', // Light alternate background
+    backgroundColor: '#eef2f3',
     marginVertical: 15,
     borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
     marginHorizontal: 16,
   },
+  teamSection: {
+    alignItems: 'center',
+    paddingVertical: 20,
+    backgroundColor: '#EEF2F3', // Light Background for Team Section
+    borderRadius: 15,
+    marginHorizontal: 16,
+    marginBottom: 20,
+  },
   sectionTitle: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#333',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  subSectionTitle: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#555',
     marginBottom: 10,
     textAlign: 'center',
   },
-  sectionText: {
-    fontSize: 16,
-    color: '#555',
-    lineHeight: 26,
-    textAlign: 'center',
-  },
-  companyName: {
-    fontWeight: 'bold',
-    color: '#4DA4E0', // Highlight the company name in blue
-  },
-  teamGrid: {
+  teamRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',  // Wraps items to the next row if screen width is smaller
-    justifyContent: 'space-around',
+    justifyContent: 'space-around', // Ensures even spacing
+    flexWrap: 'wrap', // Ensures all members fit in one row
+    width: '100%',
   },
   teamMember: {
     alignItems: 'center',
     backgroundColor: '#fff',
-    padding: 15,
+    paddingVertical: 15,
+    paddingHorizontal: 10,
     borderRadius: 15,
-    width: width * 0.1, // Each team member takes up 40% of the screen width
-    minWidth: 120,  // Minimum width for each card
-    margin: 5,  // Spacing around cards
+    width: '30%', // Ensures 3 Cards per Row
+    minWidth: 110,
+    marginHorizontal: 5,
+    marginBottom: 15,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
     elevation: 3,
   },
   teamImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    marginBottom: 10,
+    width: 75,
+    height: 75,
+    borderRadius: 37.5, // Ensures Circular Image
+    marginBottom: 8,
   },
   teamName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '600',
     color: '#333',
     textAlign: 'center',
   },
   teamRole: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#777',
     textAlign: 'center',
-  },
-  getInTouchSection: {
-    padding: 20,
-    backgroundColor: '#eef2f3',
-    marginVertical: 10,
-    borderRadius: 15,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-    marginHorizontal: 16,
-    alignItems: 'center',
+    marginTop: 2,
   },
   contactButton: {
     flexDirection: 'row',
@@ -263,16 +220,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontSize: 18,
-    marginLeft: 10,
-  },
-  addressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  addressText: {
-    fontSize: 16,
-    color: '#555',
     marginLeft: 10,
   },
 });
