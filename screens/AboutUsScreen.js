@@ -65,9 +65,9 @@ const AboutUsScreen = () => {
           </View>
 
           <View style={styles.teamMember}>
-            <Image source={require('../assets/Contacts/Mihir.png')} style={styles.teamImage} />
+            <Image source={require('../assets/Contacts/Mihir.jpg')} style={styles.teamImage} />
             <Text style={styles.teamName}>Mihir Trivedi</Text>
-            <Text style={styles.teamRole}>Software Developer - LoopX</Text>
+            <Text style={styles.teamRole}>Analyst & Teaching Assistant at Laurentian University</Text>
           </View>
 
           <View style={styles.teamMember}>

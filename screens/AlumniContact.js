@@ -19,10 +19,10 @@ const alumniData = [
   {
     id: "1",
     name: "Mihir Trivedi",
-    role: "Teaching Assistant at Laurentian",
+    role: "Analyst & Teaching Assistant at Laurentian University",
     details: "IEP 2016",
-    image: require("../assets/Contacts/Mihir.png"), // Replace with actual image path
-    email: "mihirtrivedi@gmail.com",
+    image: require("../assets/Contacts/Mihir.jpg"), // Replace with actual image path
+    email: "mtrivedi@laurentain.ca",
     instagram: "https://www.instagram.com/_mihir_trivedi/",
     linkedin: "https://www.linkedin.com/in/mihirtrivedigm/",
   },
